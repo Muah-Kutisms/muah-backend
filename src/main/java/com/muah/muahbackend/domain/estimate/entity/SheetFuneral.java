@@ -1,5 +1,6 @@
 package com.muah.muahbackend.domain.estimate.entity;
 
+import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "sheet_funerals")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class SheetFuneral {
+public class SheetFuneral extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
