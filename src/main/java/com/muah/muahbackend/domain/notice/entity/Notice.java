@@ -1,4 +1,4 @@
-package com.muah.muahbackend.domain.pet.entity.entity;
+package com.muah.muahbackend.domain.notice.entity;
 
 import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
