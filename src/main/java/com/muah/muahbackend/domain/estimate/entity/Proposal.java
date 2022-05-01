@@ -32,17 +32,17 @@ public class Proposal extends Base {
     @Column(name="proposal_price", nullable = false)
     private Integer price;
 
-    @Column(name="proposal_context", nullable = false, columnDefinition = "TEXT")
-    private String context;
+    @Column(name="proposal_content", nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     // TODO : Add update functions
 
     @Builder
-    public Proposal(Sheet sheet, User writer, Integer price, String context){
+    public Proposal(Sheet sheet, User writer, Integer price, String content){
         this.sheet = sheet;
         this.writer = writer;
         this.price = price;
-        this.context = context;
+        this.content = content;
     }
 
 
