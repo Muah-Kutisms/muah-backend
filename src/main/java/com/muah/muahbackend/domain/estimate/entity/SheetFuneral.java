@@ -15,7 +15,7 @@ public class SheetFuneral extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hashtag_post_id")
+    @Column(name = "sheet_funerals_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

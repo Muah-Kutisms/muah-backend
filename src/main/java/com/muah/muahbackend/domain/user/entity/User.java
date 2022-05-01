@@ -2,6 +2,7 @@ package com.muah.muahbackend.domain.user.entity;
 
 import com.muah.muahbackend.domain.instructor.entity.Instructor;
 import com.muah.muahbackend.domain.pet.entity.Pet;
+import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -62,6 +63,9 @@ public class User extends Base {
 
     @OneToMany(mappedBy = "owner")
     private List<Pet> pets = new ArrayList<>();
+
+    @OneToMany(mappedBy = "seller")
+    private List<Product> products = new ArrayList<>();
 
     @OneToOne(mappedBy = "instructor")
     private Instructor instructor;

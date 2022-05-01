@@ -2,7 +2,6 @@ package com.muah.muahbackend.domain.estimate.entity;
 
 import com.muah.muahbackend.domain.pet.entity.Gender;
 import com.muah.muahbackend.domain.pet.entity.Pet;
-import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -49,7 +48,7 @@ public class Sheet extends Base {
 
     @Column(name="sheet_status")
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private SheetStatus status;
 
     // TODO : location 이 원하는 장례식장 위치? 내 현재 위치?
 
@@ -63,7 +62,7 @@ public class Sheet extends Base {
         this.petWeight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
         this.funeralDate = funeralDate;
-        this.status = Status.WAITING_RESERVATION;
+        this.status = SheetStatus.WAITING_RESERVATION;
     }
 
 }
