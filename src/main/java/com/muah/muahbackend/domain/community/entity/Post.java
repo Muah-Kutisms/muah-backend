@@ -2,6 +2,7 @@ package com.muah.muahbackend.domain.community.entity;
 
 import com.muah.muahbackend.domain.store.entity.ProductImage;
 import com.muah.muahbackend.domain.user.entity.User;
+import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "posts")
-public class Post {
+public class Post extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")

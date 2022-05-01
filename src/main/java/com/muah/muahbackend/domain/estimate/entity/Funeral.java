@@ -21,6 +21,8 @@ public class Funeral {
     @Column(name = "funeral_name")
     private String name;
 
+    // TODO : might need more field..
+
     @Builder
     public Funeral(String name){
         this.name = name;

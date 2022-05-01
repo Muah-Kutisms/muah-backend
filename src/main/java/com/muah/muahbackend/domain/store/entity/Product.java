@@ -1,6 +1,7 @@
 package com.muah.muahbackend.domain.store.entity;
 
 import com.muah.muahbackend.domain.user.entity.User;
+import com.muah.muahbackend.global.entity.Base;
 import jdk.dynalink.linker.LinkerServices;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "products")
-public class Product {
+public class Product extends Base {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

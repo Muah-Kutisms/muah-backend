@@ -1,5 +1,6 @@
-package com.muah.muahbackend.domain.notice.entity;
+package com.muah.muahbackend.domain.pet.entity.entity;
 
+import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="notices")
-public class Notice {
+public class Notice extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notice_id")

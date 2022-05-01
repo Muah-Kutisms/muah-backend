@@ -1,5 +1,6 @@
 package com.muah.muahbackend.domain.faq.entity;
 
+import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="faqs")
-public class Faq {
+public class Faq extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "faq_id")

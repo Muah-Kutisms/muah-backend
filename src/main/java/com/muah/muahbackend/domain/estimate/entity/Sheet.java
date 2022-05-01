@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -49,6 +51,12 @@ public class Sheet extends Base {
     @Column(name="sheet_status")
     @Enumerated(EnumType.STRING)
     private SheetStatus status;
+
+    @OneToMany(mappedBy = "sheet")
+    private List<SheetFuneral> funerals = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sheet")
+    private List<Proposal> proposals = new ArrayList<>();
 
     // TODO : location 이 원하는 장례식장 위치? 내 현재 위치?
 
