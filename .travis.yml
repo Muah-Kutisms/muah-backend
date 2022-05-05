@@ -47,7 +47,7 @@ deploy:
     access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
     secret_access_key: $AWS_SECRET_KEY # Travis repos settings에 설정된 값
     bucket: kusitsms-muah # s3 버킷
-    key: kusitsms-muah-codedeploy.zip # 빌드 파일 압축해서 전달
+    key: muah-backend.zip # 빌드 파일 압축해서 전달
     bundle_type: zip # 압축 확장자
     application: kusitsms_muah_deploy # 웹 콘솔에서 등록한 CodeDelpoy 애플리케이션 이름
     deployment_group: kusitsms_muah # 웹 콘솔에서 등록한 CodeDelpoy 배포 그룹 이름
