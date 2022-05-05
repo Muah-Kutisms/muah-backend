@@ -23,4 +23,4 @@ script: "./gradlew clean build"
 notifications:
   email:
     recipients:
-      - bstmkykd1@sookmyung.ac.kr # 여기 바꿔도 됨!
+      - dahyun_ee@naver.com # 여기 바꿔도 됨!
