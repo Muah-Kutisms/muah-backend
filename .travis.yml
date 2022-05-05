@@ -18,3 +18,24 @@ notifications:
   email:
     recipients:
     - dahyun_ee@naver.com
+
+
+
+before_deploy:
+  - zip -r muah-backend *
+  - mkdir -p deploy
+  - mv muah-backend.zip deploy/muah-backend.zip
+
+deploy:
+  # S3로 파일업로드
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repos settings에 설정된 값
+    bucket: kusitsms-muah # s3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private # zip 파일 접근을 private으로
+    local_dir: deploy # before_deploy에서 생성한 디렉토리
+    wait-until-deployed: true
+    on:
+      all_branches: true # master말고 다른 모든 브런치 허용
