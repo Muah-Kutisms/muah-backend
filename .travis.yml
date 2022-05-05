@@ -1,26 +1,20 @@
 language: java
 jdk:
-  - openjdk11
-
-# Git Push할 Branch
+- openjdk11
 branches:
   only:
-    - master
-
-# gradlew 권한 추가
+  - master
 before_install:
-  - chmod +x gradlew
-
-# Travis CI 서버의 Home
+- openssl aes-256-cbc -K $encrypted_7ea01d072007_key -iv $encrypted_7ea01d072007_iv
+  -in application-database.properties.enc -out src/main/resources/application-database.properties
+  -d
+- chmod +x gradlew
 cache:
   directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
-
+  - "$HOME/.m2/repository"
+  - "$HOME/.gradle"
 script: "./gradlew clean build"
-
-# CI 실행 완료시 메일로 알람
 notifications:
   email:
     recipients:
-      - dahyun_ee@naver.com # 여기 바꿔도 됨!
+    - dahyun_ee@naver.com
