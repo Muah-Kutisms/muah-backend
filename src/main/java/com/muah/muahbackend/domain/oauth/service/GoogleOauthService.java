@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.muah.muahbackend.domain.oauth.dto.GoogleLoginDto;
 import com.muah.muahbackend.domain.oauth.dto.GoogleLoginResponse;
+import com.muah.muahbackend.domain.oauth.dto.UserLoginResponse;
+import com.muah.muahbackend.domain.user.entity.User;
+import com.muah.muahbackend.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -36,6 +40,8 @@ public class GoogleOauthService {
     private String GOOGLE_TOKEN_BASE_URL;
     @Value("${google.auth.url}")
     private String GOOGLE_AUTH_URL;
+
+    private UserRepository userRepository;
 
     public void request() {
         Map<String, Object> params = new HashMap<>();
@@ -57,7 +63,27 @@ public class GoogleOauthService {
         }
     }
 
-    public ResponseEntity<GoogleLoginDto> requestAccessToken(String code) {
+    public void userLogin(String code) {
+        String email = getUserEmail(code);
+
+        Optional<User> findUser = userRepository.findByEmail(email);
+        if (findUser.isPresent()){
+            User user = findUser.get();
+            // user update refresh token
+            // return UserLoginResponse
+        }
+        else {
+            User user = User.builder()
+                    .email(email)
+                    .password("1234")
+                    .build();
+            User newUser = userRepository.save(user);
+            // new user update refresh token
+            // return UserLoginResponse
+        }
+    }
+
+    public String getUserEmail(String code) {
         RestTemplate restTemplate = new RestTemplate();
 
         Map<String, Object> params = new HashMap<>();
@@ -74,7 +100,7 @@ public class GoogleOauthService {
             objectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             GoogleLoginResponse googleLoginResponse = objectMapper.readValue(responseEntity.getBody(), new TypeReference<GoogleLoginResponse>() {});
-
+            //
             String jwtToken = googleLoginResponse.getIdToken();
 
             String requestUrl = UriComponentsBuilder.fromHttpUrl(GOOGLE_AUTH_URL+"/tokeninfo").queryParam("id_token",jwtToken).toUriString();
@@ -82,7 +108,10 @@ public class GoogleOauthService {
 
             if (resultJson != null) {
                 GoogleLoginDto userinfoDto = objectMapper.readValue(resultJson, new TypeReference<GoogleLoginDto>() {});
-                return ResponseEntity.ok().body(userinfoDto);
+
+                String email = userinfoDto.getEmail();
+
+                return email;
             }
             else {
                 throw new Exception("Google OAuth failed");
@@ -90,6 +119,6 @@ public class GoogleOauthService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ResponseEntity.badRequest().body(null);
+        return null;
     }
 }

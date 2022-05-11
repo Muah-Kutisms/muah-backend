@@ -18,6 +18,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -35,8 +36,11 @@ public class User extends Base {
     @Email
     private String email;
 
-    @Column(name = "user_nickname")
-    private String nickname;
+    @Column
+    private String password;
+
+    @Column(name = "user_name")
+    private String name;
 
     @Column(name = "user_phone")
     private String phone;
@@ -87,10 +91,17 @@ public class User extends Base {
     @OneToOne(mappedBy = "instructor")
     private Instructor instructor;
 
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name="authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
+
 
 
     @Builder
-    public User(String email){
+    public User(String email, String password){
         Address address = Address.builder()
                 .City("")
                 .District("")
@@ -98,10 +109,10 @@ public class User extends Base {
                 .build();
 
         this.email = email;
-
+        this.password = password;
         this.isApproved = false;
         this.isNew = true;
-        this.role = UserRole.USER;
+        this.role = UserRole.ROLE_USER;
         this.address = address;
 
     }

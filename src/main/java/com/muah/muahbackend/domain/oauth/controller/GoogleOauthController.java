@@ -28,9 +28,8 @@ public class GoogleOauthController {
      * @return SNS Login 요청 결과로 받은 Json 형태의 String 문자열 (access_token, refresh_token 등)
      */
     @GetMapping(value = "google/callback")
-    public ResponseEntity<GoogleLoginDto> callback(
+    public String callback(
             @RequestParam(name = "code") String code) {
-        log.info(">> 소셜 로그인 API 서버로부터 받은 code :: {}", code);
-        return oauthService.requestAccessToken(code);
+        return oauthService.getUserEmail(code);
     }
 }

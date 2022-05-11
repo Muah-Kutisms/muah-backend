@@ -26,6 +26,7 @@ public class RegisterRequest {
     public User convert() {
         return User.builder()
                 .email(getEmail())
+                .password("1234")
                 .build();
     }
 

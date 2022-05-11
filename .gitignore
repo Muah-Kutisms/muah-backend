@@ -41,3 +41,6 @@ application-database.properties
 
 ### Oauth ###
 application-oauth.properties
+
+### JWT ###
+application-jwt.properties
