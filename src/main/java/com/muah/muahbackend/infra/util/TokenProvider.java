@@ -35,6 +35,7 @@ public class TokenProvider implements InitializingBean {
 
     private final String secret;
     private final long tokenValidityInMilliseconds;
+    private long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7;
     private Key key;
 
     private final UserDetailsService userDetailsService;
@@ -68,6 +69,16 @@ public class TokenProvider implements InitializingBean {
                 .compact();
     }
 
+    public String createRefreshToken() {
+        Date now = new Date();
+
+        return Jwts.builder()
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + refreshTokenValidTime))
+                .signWith(key)
+                .compact();
+    }
+
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUserEmail(token));
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
@@ -96,5 +107,6 @@ public class TokenProvider implements InitializingBean {
         }
         return false;
     }
+
 
 }

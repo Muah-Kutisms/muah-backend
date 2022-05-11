@@ -91,12 +91,8 @@ public class User extends Base {
     @OneToOne(mappedBy = "instructor")
     private Instructor instructor;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_authority",
-            joinColumns = {@JoinColumn(name="user_id", referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name="authority_name", referencedColumnName = "authority_name")})
-    private Set<Authority> authorities;
+    @Column(name="refresh_token")
+    private String refreshToken;
 
 
 
@@ -115,6 +111,10 @@ public class User extends Base {
         this.role = UserRole.ROLE_USER;
         this.address = address;
 
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
 
