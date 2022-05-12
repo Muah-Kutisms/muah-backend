@@ -15,6 +15,7 @@ public enum ResultCode {
     UPDATE_FAIL(400, "U004", "유저정보를 업데이트에 실패했습니다."),
     GET_USER_SUCCESS(200,  "U005", "유저정보를 조회했습니다.")
 
+
     ;
 
 

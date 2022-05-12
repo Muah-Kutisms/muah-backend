@@ -11,9 +11,10 @@ public class UserInfoUpdateDto {
 
     private String name;
     private String phone;
-    private Address address;
+    private AddressDto address;
     private UserRole role;
     private Boolean isApproved;
     private Boolean isNew;
+
 
 }

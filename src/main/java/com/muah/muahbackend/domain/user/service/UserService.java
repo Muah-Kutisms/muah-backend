@@ -28,7 +28,7 @@ public class UserService {
                 .map(user -> {
                     user.setName(updateInfo.getName());
                     user.setPhone(updateInfo.getPhone());
-                    user.setAddress(updateInfo.getAddress());
+                    user.setAddress(updateInfo.getAddress().convert());
                     user.setRole(updateInfo.getRole());
                     user.setIsNew(updateInfo.getIsNew());
                     user.setIsApproved(updateInfo.getIsApproved());

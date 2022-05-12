@@ -21,7 +21,7 @@ public class UserDto {
     private String email;
     private String name;
     private String phone;
-    private Address address;
+    private AddressDto address;
     private UserRole role;
     private Boolean isApproved;
     private Boolean isNew;
@@ -32,12 +32,10 @@ public class UserDto {
         this.email = user.getEmail();
         this.name = user.getName();
         this.phone = user.getPhone();
-        this.address = user.getAddress();
+        this.address = new AddressDto(user.getAddress());
         this.role = user.getRole();
         this.isApproved = user.getIsApproved();
         this.isNew = user.getIsNew();
-        if (pets != null)
-            this.pets = pets;
     }
 
 }
