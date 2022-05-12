@@ -29,14 +29,6 @@ public class UserAuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    @Transactional
-    public boolean register(RegisterRequest registerRequest) {
-        User user = registerRequest.convert();
-        userRepository.save(user);
-
-        return true;
-    }
-
     /**
     * 토큰 재발행
     * @param requestDto

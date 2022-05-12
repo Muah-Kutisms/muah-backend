@@ -8,6 +8,8 @@ import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.domain.user.service.UserAuthService;
 import com.muah.muahbackend.infra.config.security.JwtFilter;
 import com.muah.muahbackend.infra.util.TokenProvider;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,7 +24,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/token")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -31,19 +33,8 @@ public class AuthController {
     private final UserRepository userRepository;
     private final UserAuthService userAuthService;
 
-
-    @PostMapping("/authenticate")
-    public TokenDto authorize(@Valid @RequestBody LoginDto loginDto) {
-        Optional<User> user = userRepository.findByEmail(loginDto.getEmail());
-
-        if (user.isPresent()) {
-            return new TokenDto(tokenProvider.createToken(loginDto.getEmail()), tokenProvider.createRefreshToken() );
-        } else {
-            System.out.println("can't find");
-        }
-        return null;
-    }
-
+    @ApiOperation(value = "토큰 재발급", tags = "유저인증 API")
+    @ApiImplicitParam(name = "Authorization", value = "불필요", required = false, example = " ")
     @PostMapping("/reissue")
     public TokenDto reIssue(@RequestBody TokenRequestDto tokenRequestDto) {
         TokenDto responseDto = userAuthService.reIssue(tokenRequestDto);

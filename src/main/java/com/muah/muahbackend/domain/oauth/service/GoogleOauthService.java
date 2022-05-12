@@ -9,6 +9,7 @@ import com.muah.muahbackend.domain.oauth.dto.GoogleLoginResponse;
 import com.muah.muahbackend.domain.oauth.dto.UserLoginResponse;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
+import com.muah.muahbackend.infra.util.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,8 @@ public class GoogleOauthService {
     @Value("${google.auth.url}")
     private String GOOGLE_AUTH_URL;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final TokenProvider tokenProvider;
 
     public void request() {
         Map<String, Object> params = new HashMap<>();
@@ -53,9 +55,7 @@ public class GoogleOauthService {
         String parameterString = params.entrySet().stream()
                 .map(x -> x.getKey() + "=" + x.getValue())
                 .collect(Collectors.joining("&"));
-
         String redirectURL = GOOGLE_BASE_URL + "?" + parameterString;
-        System.out.println(redirectURL);
         try{
             response.sendRedirect(redirectURL);
         }catch (IOException e) {
@@ -63,24 +63,28 @@ public class GoogleOauthService {
         }
     }
 
-    public void userLogin(String code) {
+    public UserLoginResponse userLogin(String code) {
         String email = getUserEmail(code);
 
         Optional<User> findUser = userRepository.findByEmail(email);
         if (findUser.isPresent()){
             User user = findUser.get();
-            // user update refresh token
-            // return UserLoginResponse
+            user.updateRefreshToken(tokenProvider.createRefreshToken());
+            return new UserLoginResponse(user.getId(), user.getIsNew(), tokenProvider.createToken(user.getEmail()), user.getRefreshToken());
         }
         else {
-            User user = User.builder()
-                    .email(email)
-                    .password("1234")
-                    .build();
-            User newUser = userRepository.save(user);
-            // new user update refresh token
-            // return UserLoginResponse
+            User newUser = saveUser(email);
+            newUser.updateRefreshToken(tokenProvider.createRefreshToken());
+            return new UserLoginResponse(newUser.getId(), newUser.getIsNew(), tokenProvider.createToken(newUser.getEmail()), newUser.getRefreshToken());
         }
+    }
+
+    private User saveUser(String email){
+        User user = User.builder()
+                .email(email)
+                .password("1234")
+                .build();
+        return userRepository.save(user);
     }
 
     public String getUserEmail(String code) {
