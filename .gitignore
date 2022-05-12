@@ -38,3 +38,5 @@ out/
 
 ### Database ###
 application-database.properties
+application-jwt.properties
+application-oauth.properties
