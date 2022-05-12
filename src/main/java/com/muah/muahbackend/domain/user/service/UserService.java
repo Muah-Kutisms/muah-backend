@@ -43,18 +43,12 @@ public class UserService {
     public UserDto getUserInfo(Long id){
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
-//            System.out.println((user.get().getPets()));
-//            List<Pet> pets = user.get().getPets();
+            System.out.println((user.get().getPets()));
             return new UserDto(user.get(), user.get().getPets());
         }
         else{
             throw new UserNotFoundException();
         }
-//        return userRepository.findById(id)
-//                .map(user -> {
-//                    return new UserDto(user);
-//                })
-//                .orElseThrow(() -> new UserNotFoundException());
     }
 
 }
