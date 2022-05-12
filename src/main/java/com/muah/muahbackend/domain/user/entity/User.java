@@ -8,10 +8,7 @@ import com.muah.muahbackend.domain.store.entity.Order;
 import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.store.entity.Review;
 import com.muah.muahbackend.global.entity.Base;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -22,6 +19,7 @@ import java.util.Set;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
 @Table(name="users")
@@ -115,6 +113,15 @@ public class User extends Base {
 
     public void updateRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void updateAddress(String city, String district, String country) {
+        Address address = Address.builder()
+                .City(city)
+                .District(district)
+                .County(country)
+                .build();
+        this.address = address;
     }
 
 

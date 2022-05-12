@@ -1,0 +1,19 @@
+package com.muah.muahbackend.domain.user.dto;
+
+import com.muah.muahbackend.domain.user.entity.Address;
+import com.muah.muahbackend.domain.user.entity.UserRole;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+public class UserInfoUpdateDto {
+
+    private String name;
+    private String phone;
+    private Address address;
+    private UserRole role;
+    private Boolean isApproved;
+    private Boolean isNew;
+
+}
