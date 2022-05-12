@@ -1,8 +1,12 @@
 package com.muah.muahbackend.domain.user.entity;
 
+import com.muah.muahbackend.domain.community.entity.Comment;
+import com.muah.muahbackend.domain.community.entity.Post;
 import com.muah.muahbackend.domain.instructor.entity.Instructor;
 import com.muah.muahbackend.domain.pet.entity.Pet;
+import com.muah.muahbackend.domain.store.entity.Order;
 import com.muah.muahbackend.domain.store.entity.Product;
+import com.muah.muahbackend.domain.store.entity.Review;
 import com.muah.muahbackend.global.entity.Base;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,6 +18,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,17 +36,20 @@ public class User extends Base {
     @Email
     private String email;
 
-    @Column(name = "user_nickname", unique = true, nullable = false)
-    private String nickname;
+    @Column
+    private String password;
 
-    @Column(name = "user_phone", nullable = false)
+    @Column(name = "user_name")
+    private String name;
+
+    @Column(name = "user_phone")
     private String phone;
 
     @Embedded
     @AttributeOverrides({
-            @AttributeOverride(name = "City", column = @Column(name = "user_city", nullable = false)),
+            @AttributeOverride(name = "City", column = @Column(name = "user_city")),
             @AttributeOverride(name = "County", column = @Column(name = "user_county")),
-            @AttributeOverride(name = "District", column = @Column(name = "user_district", nullable = false)),
+            @AttributeOverride(name = "District", column = @Column(name = "user_district")),
     })
     private Address address;
 
@@ -67,17 +75,46 @@ public class User extends Base {
     @OneToMany(mappedBy = "seller")
     private List<Product> products = new ArrayList<>();
 
+    @OneToMany(mappedBy = "writer")
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "writer")
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "buyer")
+    private List<Order> orders = new ArrayList<>();
+
+    @OneToMany(mappedBy = "writer")
+    private List<Review> reviews = new ArrayList<>();
+
+
     @OneToOne(mappedBy = "instructor")
     private Instructor instructor;
 
+    @Column(name="refresh_token")
+    private String refreshToken;
+
+
 
     @Builder
-    public User(String email, String nickname, String phone, UserRole role, Address address){
+    public User(String email, String password){
+        Address address = Address.builder()
+                .City("")
+                .District("")
+                .County("")
+                .build();
+
         this.email = email;
-        this.nickname = nickname;
-        this.phone = phone;
-        this.role = role;
+        this.password = password;
+        this.isApproved = false;
+        this.isNew = true;
+        this.role = UserRole.ROLE_USER;
         this.address = address;
+
+    }
+
+    public void updateRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 
 
