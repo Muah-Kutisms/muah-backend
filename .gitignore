@@ -44,3 +44,4 @@ application-oauth.properties
 
 ### JWT ###
 application-jwt.properties
+
