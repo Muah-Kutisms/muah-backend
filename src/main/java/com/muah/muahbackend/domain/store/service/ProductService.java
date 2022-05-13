@@ -1,11 +1,10 @@
 package com.muah.muahbackend.domain.store.service;
 
-import com.muah.muahbackend.domain.store.dto.ProductDto;
-import com.muah.muahbackend.domain.store.dto.ProductMenuDto;
-import com.muah.muahbackend.domain.store.dto.ProductUploadRequest;
-import com.muah.muahbackend.domain.store.dto.ProductUploadResponse;
+import com.muah.muahbackend.domain.store.dto.*;
 import com.muah.muahbackend.domain.store.entity.Product;
+import com.muah.muahbackend.domain.store.entity.Review;
 import com.muah.muahbackend.domain.store.repository.ProductRepository;
+import com.muah.muahbackend.domain.store.repository.ReviewRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.ProductNotFoundException;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static java.util.stream.Collectors.toCollection;
@@ -28,6 +28,7 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final UserRepository userRepository;
+    private final ReviewRepository reviewRepository;
 
     @Transactional
     public ProductUploadResponse uploadProduct(ProductUploadRequest request){
@@ -54,6 +55,15 @@ public class ProductService {
     @Transactional(readOnly = true)
     public ProductDto getProduct(Long id) {
         Product product = productRepository.findById(id).orElseThrow(() -> new ProductNotFoundException());
-        return new ProductDto(product);
+        ProductDto result = new ProductDto(product);
+        setReviews(product, result);
+        return result;
+    }
+
+    private void setReviews(Product product, ProductDto productDto){
+        Collection<Review> reviewsData = reviewRepository.findAllByProduct(product);
+        List<ProductReviewDto> reviews = reviewsData.stream().map(r -> new ProductReviewDto(r)).collect(toCollection(ArrayList::new));
+        productDto.setReviews(reviews);
     }
 }
+

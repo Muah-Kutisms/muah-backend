@@ -1,8 +1,6 @@
 package com.muah.muahbackend.domain.store.dto;
 
 import com.muah.muahbackend.domain.store.entity.Product;
-import com.muah.muahbackend.domain.store.entity.Review;
-import com.muah.muahbackend.domain.user.dto.UserDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +17,7 @@ public class ProductDto {
     private Integer price;
     private String option;
     private String description;
-    private List<Review> reviews;
+    private List<ProductReviewDto> reviews;
 
     public ProductDto(Product product) {
         this.sellerName = product.getSeller().getName();

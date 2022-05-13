@@ -20,6 +20,9 @@ public enum ResultCode {
     GET_PRODUCT_SUCCESS(200, "P002", "상품조회에 성공했습니다."),
     GET_PRODUCT_MENU_SUCCESS(200, "P003", "상품 메뉴 조회에 성공했습니다."),
 
+    //Review
+    UPLOAD_REVIEW_SUCCESS(200, "R001", "상품리뷰 등록에 성공했습니다."),
+
     ;
 
 
