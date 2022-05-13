@@ -57,6 +57,6 @@ public class Product extends Base {
         this.price = price;
         this.option = option;
         this.description = description;
-        this. isAdvertised = false;
+        this.isAdvertised = false;
     }
 }

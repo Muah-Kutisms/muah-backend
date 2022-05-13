@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @Api(tags = "유저 API")
 public class UserController {
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @ApiOperation(value = "유저 정보 업데이트")
