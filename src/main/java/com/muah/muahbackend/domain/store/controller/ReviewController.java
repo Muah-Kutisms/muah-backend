@@ -36,4 +36,5 @@ public class ReviewController {
         response = ResultResponse.of(ResultCode.GET_PRODUCT_SUCCESS, reviewService.getReviews());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
+
 }

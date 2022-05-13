@@ -1,7 +1,10 @@
 package com.muah.muahbackend.domain.store.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.muah.muahbackend.domain.store.dto.ProductUpdateDto;
 import com.muah.muahbackend.domain.store.dto.ProductUploadRequest;
 import com.muah.muahbackend.domain.store.dto.ProductUploadResponse;
+import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.store.service.ProductService;
 import com.muah.muahbackend.global.result.ResultCode;
 import com.muah.muahbackend.global.result.ResultResponse;
@@ -10,7 +13,12 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.lang.reflect.Field;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/product")
@@ -44,6 +52,16 @@ public class ProductController {
         ResultResponse response;
         response = ResultResponse.of(ResultCode.GET_PRODUCT_SUCCESS,
                 productService.getProductMenu());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+
+    @ApiOperation(value = "상품 수정")
+    @PutMapping("/{id}")
+    public ResponseEntity<ResultResponse> updateProduct(@PathVariable Long id,
+                                                        @RequestBody ProductUpdateDto request){
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.UPDATE_PRODUCT_SUCCESS, productService.updateProduct(id, request));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
