@@ -21,6 +21,11 @@ cache:
   - "$HOME/.gradle"
 script: "./gradlew clean build"
 
+notifications: # 4.
+  email:
+    recipients:
+      - bstmkykd1@sookmyung.ac.kr
+
 before_deploy:
 - mkdir -p before-deploy
 - cp scripts/*.sh before-deploy/
