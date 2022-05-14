@@ -5,14 +5,14 @@ branches:
   only:
   - master
 before_install:
-- openssl aes-256-cbc -K $encrypted_404881035eff_key -iv $encrypted_404881035eff_iv
-  -in application-oauth.properties.enc -out src/main/resources/application-oauth.properties
+- openssl aes-256-cbc -K $encrypted_7ea01d072007_key -iv $encrypted_7ea01d072007_iv
+  -in application-database.properties.enc -out src/main/resources/application-database.properties
   -d
 - openssl aes-256-cbc -K $encrypted_e7a698439fc6_key -iv $encrypted_e7a698439fc6_iv
   -in application-jwt.properties.enc -out src/main/resources/application-jwt.properties
   -d
-- openssl aes-256-cbc -K $encrypted_7ea01d072007_key -iv $encrypted_7ea01d072007_iv
-  -in application-database.properties.enc -out src/main/resources/application-database.properties
+- openssl aes-256-cbc -K $encrypted_404881035eff_key -iv $encrypted_404881035eff_iv
+  -in application-oauth.properties.enc -out src/main/resources/application-oauth.properties
   -d
 - chmod +x gradlew
 cache:
@@ -30,8 +30,8 @@ before_deploy:
 - mv before-deploy/before-deploy.zip deploy/muah-backend.zip
 deploy:
 - provider: s3
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
   bucket: kusitsms-muah
   region: ap-northeast-2
   skip_cleanup: true
@@ -39,8 +39,8 @@ deploy:
   local_dir: deploy
   wait-until-deployed: true
 - provider: codedeploy
-  access_key_id: $AWS_ACCESS_KEY
-  secret_access_key: $AWS_SECRET_KEY
+  access_key_id: "$AWS_ACCESS_KEY"
+  secret_access_key: "$AWS_SECRET_KEY"
   bucket: kusitsms-muah
   key: muah-backend.zip
   bundle_type: zip
