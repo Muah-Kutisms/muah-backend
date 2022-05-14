@@ -30,8 +30,11 @@ public enum ErrorCode {
     NEED_TO_LOGIN(401, "U003", "로그인 후 이용가능합니다."),
 
     NO_AUTHORITY(403, "U004", "권한이 없습니다."),
-    INVALID_TOKEN(400, "U005", "유효하지 않은 토큰입니다.")
-    ;
+    INVALID_TOKEN(400, "U005", "유효하지 않은 토큰입니다."),
+
+
+    //Pet
+    PET_NOT_FOUND(400, "P001", "존재 하지 않는 반려동물 정보입니다.");
 
     private int status;
     private final String code;
