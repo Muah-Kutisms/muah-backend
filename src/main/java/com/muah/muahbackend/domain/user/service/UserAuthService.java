@@ -1,15 +1,12 @@
 package com.muah.muahbackend.domain.user.service;
 
-import com.muah.muahbackend.domain.user.dto.RegisterRequest;
 import com.muah.muahbackend.domain.user.dto.TokenDto;
 import com.muah.muahbackend.domain.user.dto.TokenRequestDto;
-import com.muah.muahbackend.domain.user.dto.UserResponse;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.InvalidRefreshTokenException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import com.muah.muahbackend.infra.util.TokenProvider;
-import com.nimbusds.oauth2.sdk.TokenResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -18,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Slf4j
 @Service

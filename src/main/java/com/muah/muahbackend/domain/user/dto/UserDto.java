@@ -1,16 +1,13 @@
 package com.muah.muahbackend.domain.user.dto;
 
+import com.muah.muahbackend.domain.pet.dto.PetDto;
 import com.muah.muahbackend.domain.pet.entity.Pet;
-import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.user.entity.Address;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.entity.UserRole;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -25,9 +22,9 @@ public class UserDto {
     private UserRole role;
     private Boolean isApproved;
     private Boolean isNew;
-    private List<Pet> pets;
+    private List<PetDto> pets;
 
-    public UserDto(User user, List<Pet> pets){
+    public UserDto(User user){
         this.id = user.getId();
         this.email = user.getEmail();
         this.name = user.getName();
@@ -36,8 +33,6 @@ public class UserDto {
         this.role = user.getRole();
         this.isApproved = user.getIsApproved();
         this.isNew = user.getIsNew();
-        if (pets != null)
-            this.pets = pets;
     }
 
 }
