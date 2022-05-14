@@ -20,12 +20,6 @@ cache:
   - "$HOME/.m2/repository"
   - "$HOME/.gradle"
 script: "./gradlew clean build"
-
-notifications: # 4.
-  email:
-    recipients:
-      - bstmkykd1@sookmyung.ac.kr
-
 before_deploy:
 - mkdir -p before-deploy
 - cp scripts/*.sh before-deploy/
@@ -34,7 +28,6 @@ before_deploy:
 - cd before-deploy && zip -r before-deploy *
 - cd ../ && mkdir -p deploy
 - mv before-deploy/before-deploy.zip deploy/muah-backend.zip
-
 deploy:
 - provider: s3
   access_key_id: "$AWS_ACCESS_KEY"
@@ -45,7 +38,6 @@ deploy:
   acl: private
   local_dir: deploy
   wait-until-deployed: true
-
 - provider: codedeploy
   access_key_id: "$AWS_ACCESS_KEY"
   secret_access_key: "$AWS_SECRET_KEY"
@@ -56,5 +48,3 @@ deploy:
   deployment_group: kusitsms_muah
   region: ap-northeast-2
   wait-until-deployed: true
-
-
