@@ -22,7 +22,7 @@ public class SheetController {
 
     }
 
-    @ApiOperation(value = "견적서 조회")
+    @ApiOperation(value = "견적서 생성")
     @PostMapping("/")
     public void postSheet(@RequestBody TokenRequestDto tokenRequestDto) {
 
