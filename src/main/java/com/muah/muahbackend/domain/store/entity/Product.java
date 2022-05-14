@@ -3,10 +3,7 @@ package com.muah.muahbackend.domain.store.entity;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.entity.Base;
 import jdk.dynalink.linker.LinkerServices;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "products")
 public class Product extends Base {
@@ -57,6 +55,6 @@ public class Product extends Base {
         this.price = price;
         this.option = option;
         this.description = description;
-        this. isAdvertised = false;
+        this.isAdvertised = false;
     }
 }
