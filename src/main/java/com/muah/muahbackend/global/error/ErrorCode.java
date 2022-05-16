@@ -34,7 +34,9 @@ public enum ErrorCode {
 
     //Product
     PRODUCT_NOT_FOUND(400, "P001", "존재 하지 않는 상품입니다."),
-    ;
+
+    //Pet
+    PET_NOT_FOUND(400, "P001", "존재 하지 않는 반려동물 정보입니다.");
 
     private int status;
     private final String code;

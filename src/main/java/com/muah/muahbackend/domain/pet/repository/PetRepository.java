@@ -9,8 +9,14 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 
+
+@Transactional
 public interface PetRepository extends JpaRepository<Pet, Long> {
+
+    Optional<Pet> findById(Long id);
 
     @Query("from Pet p where p.owner = :owner")
     Collection<Pet> findAllByOwner(@Param("owner") User owner);
