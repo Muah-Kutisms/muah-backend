@@ -15,13 +15,18 @@ public enum ResultCode {
     UPDATE_FAIL(400, "U004", "유저정보를 업데이트에 실패했습니다."),
     GET_USER_SUCCESS(200,  "U005", "유저정보를 조회했습니다."),
 
-    //Product
+    // Product
     UPLOAD_PRODUCT_SUCCESS(200, "P001", "상품등록에 성공했습니다."),
     GET_PRODUCT_SUCCESS(200, "P002", "상품조회에 성공했습니다."),
     GET_PRODUCT_MENU_SUCCESS(200, "P003", "상품 메뉴 조회에 성공했습니다."),
-    UPDATE_PRODUCT_SUCCESS(200, "P004", "상품수정에 성공했습니다"),
-    //Review
+    UPDATE_PRODUCT_SUCCESS(200, "P004", "상품수정에 성공했습니다."),
+    // Review
     UPLOAD_REVIEW_SUCCESS(200, "R001", "상품리뷰 등록에 성공했습니다."),
+
+
+    // Sheet
+    GET_PET_SUCCESS(200, "S001", "반려동물 조회에 성공하였습니다."),
+    GET_SHEET_SUCCESS(200, "S002", "견적서 조회에 성공하였습니다."),
 
     ;
 
