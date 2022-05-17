@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/funeral")
 @RequiredArgsConstructor
-@Api(tags = "견적서 생성 API")
+@Api(tags = "견적서 API")
 public class SheetController {
 
     private final PetService petService;

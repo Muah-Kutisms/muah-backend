@@ -11,10 +11,12 @@ import com.muah.muahbackend.domain.store.dto.ReviewUploadRequest;
 import com.muah.muahbackend.domain.store.dto.ReviewUploadResponse;
 import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.store.entity.Review;
+import com.muah.muahbackend.domain.user.dto.UserDto;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.PetNotFoundException;
 import com.muah.muahbackend.global.error.exception.ProductNotFoundException;
+import com.muah.muahbackend.global.error.exception.SheetNotFoundException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -60,11 +63,14 @@ public class SheetService {
     }
 
     @Transactional(readOnly = true)
-    public List<SheetDto> getSheets(@PathVariable Long id) {
+    public List<SheetDto> getSheets(Long id) {
+
+
         Collection<Sheet> sheets = sheetRepository.findAllByPetId(id);
         ArrayList<SheetDto> sheetsList = sheets.stream().map(s-> new SheetDto(s)).collect(toCollection(ArrayList::new));
         return sheetsList;
     }
+
 
     @Transactional
     public SheetUploadResponse uploadSheet(SheetUploadRequest request){

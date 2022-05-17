@@ -4,7 +4,9 @@ import com.muah.muahbackend.domain.pet.repository.PetRepository;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.pet.dto.PetDto;
 import com.muah.muahbackend.domain.store.dto.ProductDto;
+import com.muah.muahbackend.domain.store.dto.ReviewDto;
 import com.muah.muahbackend.domain.store.entity.Product;
+import com.muah.muahbackend.domain.store.entity.Review;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.error.exception.PetNotFoundException;
@@ -33,7 +35,7 @@ public class PetService {
 
     @Transactional(readOnly = true)
     public List<PetDto> getPetList() {
-        Object principal = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email;
         if (principal instanceof UserDetails) {
             email = ((UserDetails)principal).getUsername();
@@ -43,10 +45,6 @@ public class PetService {
 
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException());
         Collection<Pet> petData = petRepository.findAllByOwner(user);
-
-        if (petData.isEmpty()){
-            throw new PetNotFoundException();
-        }
 
         List<PetDto> pets = petData.stream().map(r -> new PetDto(r)).collect(toCollection(ArrayList::new));
         return pets;
