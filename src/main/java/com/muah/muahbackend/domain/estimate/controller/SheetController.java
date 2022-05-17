@@ -23,16 +23,23 @@ public class SheetController {
     }
 
 
-   @ApiOperation(value = "견적서 생성")
-   @PostMapping("/")
-   public void postSheet(@RequestBody TokenRequestDto tokenRequestDto) {
+    @ApiOperation(value = "견적서 수정")
+    @PutMapping("/")
+    public void putSheet(@RequestBody TokenRequestDto tokenRequestDto) {
 
 
     }
 
     @ApiOperation(value = "견적서 생성")
-    @PutMapping("/")
-    public void putSheet(@RequestBody TokenRequestDto tokenRequestDto) {
+    @PostMapping("/customer/{id}")
+    public void postSheet(@RequestBody TokenRequestDto tokenRequestDto) {
+
+
+    }
+
+    @ApiOperation(value = "견적서 생성")
+    @DeleteMapping("/customer/{id}")
+    public void deleteSheet(@RequestBody TokenRequestDto tokenRequestDto) {
 
 
     }
