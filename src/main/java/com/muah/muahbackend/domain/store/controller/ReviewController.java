@@ -33,7 +33,20 @@ public class ReviewController {
     @GetMapping("/")
     public ResponseEntity<ResultResponse> getReviews(){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.GET_PRODUCT_SUCCESS, reviewService.getReviews());
+        response = ResultResponse.of(ResultCode.GET_REVIEW_SUCCESS, reviewService.getReviews());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ApiOperation(value="상품리뷰 삭제")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResultResponse> deleteProduct(@PathVariable Long id){
+        ResultResponse response;
+        if (reviewService.deleteReview(id)){
+            response = ResultResponse.of(ResultCode.DELETE_REVIEW_SUCCESS);
+        }
+        else{
+            response = ResultResponse.of(ResultCode.DELETE_REVIEW_FAILED);
+        }
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

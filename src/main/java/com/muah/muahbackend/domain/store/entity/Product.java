@@ -45,7 +45,7 @@ public class Product extends Base {
     @OneToMany(mappedBy = "product")
     private List<ProductImage>images = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval=true)
     private List<Review> reviews = new ArrayList<>();
 
     @Builder

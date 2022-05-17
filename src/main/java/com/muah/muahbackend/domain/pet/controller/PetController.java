@@ -63,7 +63,7 @@ public class PetController {
     public ResponseEntity<ResultResponse> deletePetInfo(@PathVariable Long id ) {
         ResultResponse response;
         try {
-            response = ResultResponse.of(ResultCode.DELELT_PET_SUCCESS,
+            response = ResultResponse.of(ResultCode.DELELET_PET_SUCCESS,
                     petService.deletePetInfo(id));
         } catch (Exception e){
             response = ResultResponse.of(ResultCode.PET_FAIL, e.getMessage());
