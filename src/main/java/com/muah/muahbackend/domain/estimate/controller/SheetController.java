@@ -1,6 +1,8 @@
 package com.muah.muahbackend.domain.estimate.controller;
 
+import com.muah.muahbackend.domain.estimate.dto.SheetUploadRequest;
 import com.muah.muahbackend.domain.estimate.service.SheetService;
+import com.muah.muahbackend.domain.store.dto.ReviewUploadRequest;
 import com.muah.muahbackend.domain.user.dto.TokenRequestDto;
 import com.muah.muahbackend.domain.pet.service.PetService;
 import com.muah.muahbackend.global.result.ResultCode;
@@ -24,39 +26,61 @@ public class SheetController {
     private final PetService petService;
     private final SheetService sheetService;
 
-    @ApiOperation(value = "동물 조회")
+    @ApiOperation(value = "전체 동물 조회")
     @GetMapping("/pet")
-    public ResponseEntity<ResultResponse> getPets() {
+    public ResponseEntity<ResultResponse> getTotalPets() {
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.GET_PET_SUCCESS, petService.getPets());
+        response = ResultResponse.of(ResultCode.GET_PET_SUCCESS, petService.getPetList());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ApiOperation(value = "id인 동물 조회")
+    @GetMapping("/pet/{id}")
+    public ResponseEntity<ResultResponse> getOnePet(@PathVariable Long id) {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.GET_PET_SUCCESS, petService.getPet(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
 
-    @ApiOperation(value = "동물마다 견적서 조회")
+    @ApiOperation(value = "내 견적서 조회")
     @GetMapping("/estimate")
-    public ResponseEntity<ResultResponse> getSheets(Long id) {
+    public ResponseEntity<ResultResponse> getSheetList() {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getSheetList());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ApiOperation(value = "id동물의 견적서 조회")
+    @GetMapping("/estimate/{id}")
+    public ResponseEntity<ResultResponse> getSheets(@PathVariable Long id) {
         ResultResponse response;
         response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getSheets(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
 
-    @ApiOperation(value = "동물마다 견적서 수정")
+
+    @ApiOperation(value = "id동물의 견적서 수정")
     @PutMapping("/estimate/customer/{id}")
     public void putSheet(@RequestBody TokenRequestDto tokenRequestDto) {
 
 
     }
 
-    @ApiOperation(value = "동물마다 견적서 생성")
+    @ApiOperation(value = "id동물의 견적서 생성")
     @PostMapping("/estimate/customer/{id}")
-    public void postSheet(@RequestBody TokenRequestDto tokenRequestDto) {
-
+    public ResponseEntity<ResultResponse> postSheet(@RequestBody SheetUploadRequest request) {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.UPLOAD_REVIEW_SUCCESS,
+                sheetService.uploadSheet(request));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
 
-    @ApiOperation(value = "동물마다 견적서 삭제")
+
+
+    @ApiOperation(value = "id동물의 견적서 삭제")
     @DeleteMapping("/estimate/customer/{id}")
     public void deleteSheet(@RequestBody TokenRequestDto tokenRequestDto) {
 

@@ -23,9 +23,13 @@ public class SheetDto {
     private BigDecimal petWeight;
     private LocalDate birthdate;
     private String question;
-    private LocalDate funeralDate;
+    private String way;
+    private String service;
+    private String location;
+    private String funeralDate;
     private SheetStatus status;
     private List<SheetFuneral> funerals;
+
 
     public SheetDto(Sheet sheet){
         this.id = sheet.getId();
@@ -35,6 +39,9 @@ public class SheetDto {
         this.petWeight = sheet.getPetWeight();
         this.birthdate = sheet.getBirthdate();
         this.question = sheet.getQuestion();
+        this.way = sheet.getWay();
+        this.service = sheet.getService();
+        this.location = sheet.getLocation();
         this.funeralDate = sheet.getFuneralDate();
         this.status = sheet.getStatus();
         this.funerals = sheet.getFunerals();

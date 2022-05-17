@@ -33,7 +33,14 @@ public enum ErrorCode {
     INVALID_TOKEN(400, "U005", "유효하지 않은 토큰입니다."),
 
     //Product
-    PRODUCT_NOT_FOUND(400, "P001", "존재 하지 않는 상품입니다."),
+    PRODUCT_NOT_FOUND(400, "P001", "존재하지 않는 상품입니다."),
+
+
+    //Pet
+    PET_NOT_FOUND(400, "PE001", "내 반려동물이 존재하지 않습니다. "),
+
+    //Sheet
+    SHEET_NOT_FOUND(400, "S001", "존재하지 않는 견적서입니다."),
     ;
 
     private int status;
