@@ -1,5 +1,6 @@
 package com.muah.muahbackend.domain.estimate.controller;
 
+import com.muah.muahbackend.domain.estimate.service.SheetService;
 import com.muah.muahbackend.domain.user.dto.TokenRequestDto;
 import com.muah.muahbackend.domain.pet.service.PetService;
 import com.muah.muahbackend.global.result.ResultCode;
@@ -12,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+
+
 @RestController
 @RequestMapping("/funeral")
 @RequiredArgsConstructor
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class SheetController {
 
     private final PetService petService;
+    private final SheetService sheetService;
 
     @ApiOperation(value = "동물 조회")
     @GetMapping("/pet")
@@ -29,14 +33,13 @@ public class SheetController {
     }
 
 
-
-//    @ApiOperation(value = "동물마다 견적서 조회")
-//    @GetMapping("/estimate")
-//    public ResponseEntity<ResultResponse> getSheets() {
-//        ResultResponse response;
-//     //   response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getSheets());
-//       // return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
-//    }
+    @ApiOperation(value = "동물마다 견적서 조회")
+    @GetMapping("/estimate")
+    public ResponseEntity<ResultResponse> getSheets(Long id) {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getSheets(id));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
 
 
     @ApiOperation(value = "동물마다 견적서 수정")
