@@ -1,4 +1,4 @@
-package com.muah.muahbackend.infra.config.security;
+package com.muah.muahbackend.global.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.muah.muahbackend.global.error.ErrorCode;

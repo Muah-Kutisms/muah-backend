@@ -1,4 +1,4 @@
-package com.muah.muahbackend.infra.config.security;
+package com.muah.muahbackend.global.config.security;
 
 import com.muah.muahbackend.infra.util.TokenProvider;
 import org.springframework.context.annotation.Bean;
