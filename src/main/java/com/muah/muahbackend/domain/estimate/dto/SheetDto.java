@@ -18,10 +18,6 @@ import java.util.List;
 public class SheetDto {
     private Long id;
     private Long petId;
-    private String petName;
-    private Gender petGender;
-    private BigDecimal petWeight;
-    private LocalDate birthdate;
     private String question;
     private String way;
     private String service;
@@ -34,10 +30,6 @@ public class SheetDto {
     public SheetDto(Sheet sheet){
         this.id = sheet.getId();
         this.petId = sheet.getPet().getId();
-        this.petName = sheet.getPetName();
-        this.petGender = sheet.getPetGender();
-        this.petWeight = sheet.getPetWeight();
-        this.birthdate = sheet.getBirthdate();
         this.question = sheet.getQuestion();
         this.way = sheet.getWay();
         this.service = sheet.getService();

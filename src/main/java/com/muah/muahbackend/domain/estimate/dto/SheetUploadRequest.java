@@ -14,7 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 public class SheetUploadRequest {
 
-    private Pet pet;
+    private Long petId;
     private String question;
     private String way;
     private String service;

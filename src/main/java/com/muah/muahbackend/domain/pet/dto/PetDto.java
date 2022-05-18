@@ -24,7 +24,7 @@ public class PetDto {
 
     private LocalDate birthdate;
 
-    private Long user_id;
+    private Long userId;
 
 
     @Builder
@@ -34,7 +34,7 @@ public class PetDto {
         this.gender = pet.getGender();
         this.weight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
-        this.user_id = pet.getOwner().getId();
+        this.userId = pet.getOwner().getId();
     }
 
 }

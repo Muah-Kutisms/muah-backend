@@ -1,7 +1,9 @@
 package com.muah.muahbackend.domain.estimate.controller;
 
+import com.muah.muahbackend.domain.estimate.dto.SheetUpdateDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUploadRequest;
 import com.muah.muahbackend.domain.estimate.service.SheetService;
+import com.muah.muahbackend.domain.store.dto.ProductUpdateDto;
 import com.muah.muahbackend.domain.store.dto.ReviewUploadRequest;
 import com.muah.muahbackend.domain.user.dto.TokenRequestDto;
 import com.muah.muahbackend.domain.pet.service.PetService;
@@ -57,7 +59,6 @@ public class SheetController {
     public ResponseEntity<ResultResponse> getSheets(@PathVariable Long id) {
         ResultResponse response;
         response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getSheets(id));
-        System.out.println("response==================" + response.getData().getClass().getName());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
@@ -65,28 +66,32 @@ public class SheetController {
 
     @ApiOperation(value = "id동물의 견적서 수정")
     @PutMapping("/estimate/customer/{id}")
-    public void putSheet(@RequestBody TokenRequestDto tokenRequestDto) {
-
-
-    }
-
-    @ApiOperation(value = "id동물의 견적서 생성")
-    @PostMapping("/estimate/customer/{id}")
-    public ResponseEntity<ResultResponse> postSheet(@RequestBody SheetUploadRequest request) {
+    public ResponseEntity<ResultResponse> putSheet(@PathVariable Long id, @RequestBody SheetUpdateDto request){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.UPLOAD_REVIEW_SUCCESS,
-                sheetService.uploadSheet(request));
+        response = ResultResponse.of(ResultCode.UPDATE_PET_SUCCESS, sheetService.updateSheet(id, request));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
 
 
+    @ApiOperation(value = "id동물의 견적서 생성")
+    @PostMapping("/estimate/customer")
+    public ResponseEntity<ResultResponse> postSheet(@RequestBody SheetUploadRequest request) {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.CREATE_SHEET_SUCCESS, sheetService.uploadSheet(request));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+
+    }
+
 
     @ApiOperation(value = "id동물의 견적서 삭제")
     @DeleteMapping("/estimate/customer/{id}")
-    public void deleteSheet(@RequestBody TokenRequestDto tokenRequestDto) {
-
+    public ResponseEntity<ResultResponse> deleteSheet(@PathVariable Long id){
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.DELETE_SHEET_SUCCESS, sheetService.deleteSheet(id));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
+
 
 }

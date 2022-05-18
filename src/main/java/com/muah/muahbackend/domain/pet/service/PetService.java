@@ -61,8 +61,8 @@ public class PetService {
 
     @Transactional
     public Pet createPetInfo(PetDto petInfo){
-        System.out.printf("서비스 접근" + petInfo.getUser_id());
-        Optional<User> user = userRepository.findById(petInfo.getUser_id());
+        System.out.printf("서비스 접근" + petInfo.getUserId());
+        Optional<User> user = userRepository.findById(petInfo.getUserId());
         System.out.printf(String.valueOf(user.get()));
         Pet pet = Pet.builder()
                 .name(petInfo.getName())
