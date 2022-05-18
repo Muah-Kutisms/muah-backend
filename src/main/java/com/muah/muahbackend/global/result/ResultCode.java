@@ -15,7 +15,7 @@ public enum ResultCode {
     UPDATE_FAIL(400, "U004", "유저정보를 업데이트에 실패했습니다."),
     GET_USER_SUCCESS(200,  "U005", "유저정보를 조회했습니다."),
 
-    //Product
+    // Product
     UPLOAD_PRODUCT_SUCCESS(200, "P001", "상품등록에 성공했습니다."),
     GET_PRODUCT_SUCCESS(200, "P002", "상품조회에 성공했습니다."),
     GET_PRODUCT_MENU_SUCCESS(200, "P003", "상품 메뉴 조회에 성공했습니다."),
@@ -23,7 +23,7 @@ public enum ResultCode {
     DELETE_PRODUCT_SUCCESS(200, "P005", "상품 삭제에 성공했습니다"),
     DELETE_PRODUCT_FAILED(400, "P006", "상품 삭제에 실패했습니다"),
 
-    //Review
+    // Review
     UPLOAD_REVIEW_SUCCESS(200, "R001", "상품리뷰 등록에 성공했습니다."),
     DELETE_REVIEW_SUCCESS(200, "R002", "상품리뷰 삭제에 성공했습니다"),
     DELETE_REVIEW_FAILED(400, "R003", "상품리뷰 삭제에 실패했습니다"),
@@ -33,8 +33,14 @@ public enum ResultCode {
     //Pet
     CREATE_PET_SUCCESS(200, "P001", "반려동물 정보를 저장했습니다."),
     UPDATE_PET_SUCCESS(200, "P002", "반려동물 정보를 업데이트했습니다."),
-    DELELET_PET_SUCCESS(200, "P003", "반려동물 정보를 삭제했습니다."),
-    PET_FAIL(400, "P004", "반려동물 저장, 삭제에 실패했습니다.")
+    DELETE_PET_SUCCESS(200, "P003", "반려동물 정보를 삭제했습니다."),
+    PET_FAIL(400, "P004", "반려동물 저장, 삭제에 실패했습니다."),
+
+    // Sheet
+    GET_SHEET_SUCCESS(200, "S002", "견적서 조회에 성공했습니다."),
+    CREATE_SHEET_SUCCESS(200, "S001","견적서 생성에 성공했습니다."),
+    UPDATE_SHEET_SUCCESS(200,"S003","견적서 정보를 업데이트했습니다."),
+    DELETE_SHEET_SUCCESS(200,"S004","견적서 삭제에 성공했습니다."),
 
     ;
 

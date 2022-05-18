@@ -47,7 +47,7 @@ public class PetController {
     @ApiOperation(value = "반려동물 정보 업데이트")
     @PutMapping("/{id}")
     public ResponseEntity<ResultResponse> updatePetInfo(@RequestBody PetInfoUpdateDto request,
-                                                         @PathVariable Long id ) {
+                                                        @PathVariable Long id ) {
         ResultResponse response;
         try {
             response = ResultResponse.of(ResultCode.UPDATE_SUCCESS,

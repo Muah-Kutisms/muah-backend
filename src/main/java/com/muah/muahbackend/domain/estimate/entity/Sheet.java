@@ -3,10 +3,7 @@ package com.muah.muahbackend.domain.estimate.entity;
 import com.muah.muahbackend.domain.pet.entity.Gender;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.global.entity.Base;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Entity
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="sheets")
 public class Sheet extends Base {
@@ -25,7 +23,7 @@ public class Sheet extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pet_id")
     private Pet pet;
 
@@ -46,7 +44,16 @@ public class Sheet extends Base {
     private String question;
 
     @Column(name="sheet_funeral_date", nullable = false)
-    private LocalDate funeralDate;
+    private String funeralDate;
+
+    @Column(name="sheet_way", nullable = false)
+    private String way;
+
+    @Column(name="sheet_service")
+    private String service;
+
+    @Column(name="sheet_location", nullable = false)
+    private String location;
 
     @Column(name="sheet_status")
     @Enumerated(EnumType.STRING)
@@ -58,18 +65,21 @@ public class Sheet extends Base {
     @OneToMany(mappedBy = "sheet")
     private List<Proposal> proposals = new ArrayList<>();
 
-    // TODO : location 이 원하는 장례식장 위치? 내 현재 위치?
 
     // TODO : add update functions
 
     @Builder
-    public Sheet(Pet pet, LocalDate funeralDate){
+    public Sheet(Pet pet, String funeralDate, String question, String way, String service, String location){
         this.pet = pet;
         this.petName = pet.getName();
         this.petGender = pet.getGender();
         this.petWeight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
+        this.question = question;
         this.funeralDate = funeralDate;
+        this.way = way;
+        this.service = service;
+        this.location = location;
         this.status = SheetStatus.WAITING_RESERVATION;
     }
 

@@ -40,6 +40,9 @@ public enum ErrorCode {
 
     // Review
     REVIEW_NOT_FOUND(400, "R001", "존재하지 않는 리뷰입니다."),
+
+    //Sheet
+    SHEET_NOT_FOUND(400, "S001", "존재하지 않는 견적서입니다."),
     ;
     private int status;
     private final String code;

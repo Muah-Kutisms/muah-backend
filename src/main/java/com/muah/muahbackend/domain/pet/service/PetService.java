@@ -7,11 +7,18 @@ import com.muah.muahbackend.domain.pet.repository.PetRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.PetNotFoundException;
+import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.ArrayList;
+import static java.util.stream.Collectors.toCollection;
 import java.util.Optional;
 
 @Slf4j
@@ -21,6 +28,24 @@ public class PetService {
 
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+
+    @Transactional(readOnly = true)
+    public List<PetDto> getPetList() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String email;
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails)principal).getUsername();
+        } else {
+            email = principal.toString();
+        }
+
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UserNotFoundException());
+        Collection<Pet> petData = petRepository.findAllByOwner(user);
+        List<PetDto> pets = petData.stream().map(r -> new PetDto(r)).collect(toCollection(ArrayList::new));
+        System.out.println(pets);
+        return pets;
+
+    }
 
     @Transactional(readOnly = true)
     public PetDto getPetInfo(Long id){
@@ -36,15 +61,15 @@ public class PetService {
 
     @Transactional
     public Pet createPetInfo(PetDto petInfo){
-        System.out.printf("서비스 접근" + petInfo.getUser_id());
-        Optional<User> user = userRepository.findById(petInfo.getUser_id());
+        System.out.printf("서비스 접근" + petInfo.getUserId());
+        Optional<User> user = userRepository.findById(petInfo.getUserId());
         System.out.printf(String.valueOf(user.get()));
         Pet pet = Pet.builder()
-            .name(petInfo.getName())
+                .name(petInfo.getName())
                 .owner(user.get())
-            .gender(petInfo.getGender())
-            .weight(petInfo.getWeight())
-            .birthdate(petInfo.getBirthdate())
+                .gender(petInfo.getGender())
+                .weight(petInfo.getWeight())
+                .birthdate(petInfo.getBirthdate())
                 .build();
         System.out.printf(String.valueOf(user.get()));
         return petRepository.save(pet);
