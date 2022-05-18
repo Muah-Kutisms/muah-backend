@@ -1,8 +1,11 @@
 package com.muah.muahbackend.global.result;
 
+import com.muah.muahbackend.domain.estimate.dto.SheetDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+
+import java.util.ArrayList;
 
 @ApiModel(description = "결과 응답 데이터 모델")
 @Getter
@@ -30,5 +33,6 @@ public class ResultResponse {
         this.message = resultCode.getMessage();
         this.data = data;
     }
+
 
 }

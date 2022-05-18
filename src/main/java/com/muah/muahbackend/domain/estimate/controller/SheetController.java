@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 
 
 @RestController
@@ -26,11 +27,11 @@ public class SheetController {
     private final PetService petService;
     private final SheetService sheetService;
 
-    @ApiOperation(value = "전체 동물 조회")
+    @ApiOperation(value = "나의 전체 동물 조회")
     @GetMapping("/pet")
     public ResponseEntity<ResultResponse> getTotalPets() {
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.GET_PET_SUCCESS, petService.getPetList());
+        response = ResultResponse.of(ResultCode.GET_USER_SUCCESS, petService.getPetList());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
@@ -38,7 +39,7 @@ public class SheetController {
     @GetMapping("/pet/{id}")
     public ResponseEntity<ResultResponse> getOnePet(@PathVariable Long id) {
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.GET_PET_SUCCESS, petService.getPet(id));
+        response = ResultResponse.of(ResultCode.GET_USER_SUCCESS, petService.getPetInfo(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
@@ -56,6 +57,7 @@ public class SheetController {
     public ResponseEntity<ResultResponse> getSheets(@PathVariable Long id) {
         ResultResponse response;
         response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getSheets(id));
+        System.out.println("response==================" + response.getData().getClass().getName());
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

@@ -3,10 +3,7 @@ package com.muah.muahbackend.domain.estimate.entity;
 import com.muah.muahbackend.domain.pet.entity.Gender;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.global.entity.Base;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,6 +13,7 @@ import java.util.List;
 
 @Getter
 @Entity
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="sheets")
 public class Sheet extends Base {
@@ -25,7 +23,7 @@ public class Sheet extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "pet_id")
     private Pet pet;
 

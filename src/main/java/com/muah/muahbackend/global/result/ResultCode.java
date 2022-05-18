@@ -24,8 +24,14 @@ public enum ResultCode {
     UPLOAD_REVIEW_SUCCESS(200, "R001", "상품리뷰 등록에 성공했습니다."),
 
 
+    //Pet
+    CREATE_PET_SUCCESS(200, "P001", "반려동물 정보를 저장했습니다."),
+    UPDATE_PET_SUCCESS(200, "P002", "반려동물 정보를 업데이트했습니다."),
+    DELELT_PET_SUCCESS(200, "P003", "반려동물 정보를 삭제했습니다."),
+    PET_FAIL(400, "P004", "반려동물 저장, 삭제에 실패했습니다."),
+
+
     // Sheet
-    GET_PET_SUCCESS(200, "S001", "반려동물 조회에 성공하였습니다."),
     GET_SHEET_SUCCESS(200, "S002", "견적서 조회에 성공하였습니다."),
 
     ;

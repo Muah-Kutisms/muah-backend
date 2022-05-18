@@ -37,7 +37,7 @@ public enum ErrorCode {
 
 
     //Pet
-    PET_NOT_FOUND(400, "PE001", "내 반려동물이 존재하지 않습니다. "),
+    PET_NOT_FOUND(400, "P001", "존재 하지 않는 반려동물 정보입니다."),
 
     //Sheet
     SHEET_NOT_FOUND(400, "S001", "존재하지 않는 견적서입니다."),

@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 public class SheetDto {
     private Long id;
-    private Pet pet;
+    private Long petId;
     private String petName;
     private Gender petGender;
     private BigDecimal petWeight;
@@ -33,7 +33,7 @@ public class SheetDto {
 
     public SheetDto(Sheet sheet){
         this.id = sheet.getId();
-        this.pet = sheet.getPet();
+        this.petId = sheet.getPet().getId();
         this.petName = sheet.getPetName();
         this.petGender = sheet.getPetGender();
         this.petWeight = sheet.getPetWeight();
