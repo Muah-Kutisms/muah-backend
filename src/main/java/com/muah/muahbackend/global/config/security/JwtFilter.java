@@ -1,6 +1,6 @@
 package com.muah.muahbackend.global.config.security;
 
-import com.muah.muahbackend.infra.util.TokenProvider;
+import com.muah.muahbackend.global.util.TokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;

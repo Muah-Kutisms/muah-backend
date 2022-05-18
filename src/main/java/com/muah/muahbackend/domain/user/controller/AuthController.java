@@ -4,7 +4,7 @@ import com.muah.muahbackend.domain.user.dto.TokenDto;
 import com.muah.muahbackend.domain.user.dto.TokenRequestDto;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.domain.user.service.UserAuthService;
-import com.muah.muahbackend.infra.util.TokenProvider;
+import com.muah.muahbackend.global.util.TokenProvider;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
