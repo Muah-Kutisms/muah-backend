@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class }) // disable spring security temporarily
+@SpringBootApplication // disable spring security temporarily
 @EnableJpaAuditing
 public class MuahBackendApplication {
 
