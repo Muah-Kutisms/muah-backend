@@ -33,7 +33,7 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ReviewUploadResponse uploadProduct(ReviewUploadRequest request){
+    public ReviewUploadResponse uploadReview(ReviewUploadRequest request){
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new ProductNotFoundException());
         User writer = userRepository.findById(request.getWriterId()).orElseThrow(() -> new UserNotFoundException());
 

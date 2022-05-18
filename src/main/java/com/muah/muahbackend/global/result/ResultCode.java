@@ -35,6 +35,8 @@ public enum ResultCode {
     UPDATE_PET_SUCCESS(200, "P002", "반려동물 정보를 업데이트했습니다."),
     DELETE_PET_SUCCESS(200, "P003", "반려동물 정보를 삭제했습니다."),
     PET_FAIL(400, "P004", "반려동물 저장, 삭제에 실패했습니다."),
+    UPLOAD_PET_IMAGE_SUCCESS(200, "P005", "반려동물 이미지 업로드를 성공했습니다."),
+    DELETE_PET_IMAGE_SUCCESS(200, "P006", "반려동물 이미지 삭제를 성공했습니다. 기본이미지로 설정됩니다."),
 
     // Sheet
     GET_SHEET_SUCCESS(200, "S002", "견적서 조회에 성공했습니다."),

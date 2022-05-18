@@ -2,7 +2,6 @@ package com.muah.muahbackend.domain.pet.dto;
 
 import com.muah.muahbackend.domain.pet.entity.Gender;
 import com.muah.muahbackend.domain.pet.entity.Pet;
-import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.vo.Image;
 import lombok.Builder;
 import lombok.Data;
@@ -10,13 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class PetDto {
+public class PetRegisterRequest {
 
-    private Long id;
     private String name;
 
     private Gender gender;
@@ -25,19 +22,16 @@ public class PetDto {
 
     private LocalDate birthdate;
 
-    private Image image;
 
     private Long userId;
 
 
-    public PetDto(Pet pet){
-        this.id = pet.getId();
+    @Builder
+    public PetRegisterRequest(Pet pet) {
         this.name = pet.getName();
         this.gender = pet.getGender();
         this.weight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
-        this.image = pet.getImage();
         this.userId = pet.getOwner().getId();
     }
-
 }

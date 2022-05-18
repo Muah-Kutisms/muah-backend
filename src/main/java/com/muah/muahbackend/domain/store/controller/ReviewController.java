@@ -24,7 +24,7 @@ public class ReviewController {
     public ResponseEntity<ResultResponse> uploadReview(@RequestBody ReviewUploadRequest request){
         ResultResponse response;
         response = ResultResponse.of(ResultCode.UPLOAD_REVIEW_SUCCESS,
-                reviewService.uploadProduct(request));
+                reviewService.uploadReview(request));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
