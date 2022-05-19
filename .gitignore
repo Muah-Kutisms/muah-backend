@@ -44,3 +44,7 @@ application-oauth.properties
 
 ### JWT ###
 application-jwt.properties
+
+
+### AWS ###
+application-aws.properties
