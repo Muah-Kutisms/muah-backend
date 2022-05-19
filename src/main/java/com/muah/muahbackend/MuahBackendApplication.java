@@ -12,6 +12,7 @@ public class MuahBackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MuahBackendApplication.class, args);
+
 	}
 
 }

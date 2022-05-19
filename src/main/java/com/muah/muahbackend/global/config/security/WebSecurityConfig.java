@@ -1,6 +1,6 @@
-package com.muah.muahbackend.infra.config.security;
+package com.muah.muahbackend.global.config.security;
 
-import com.muah.muahbackend.infra.util.TokenProvider;
+import com.muah.muahbackend.global.util.TokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

@@ -1,5 +1,6 @@
 package com.muah.muahbackend.domain.store.service;
 
+import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.store.dto.*;
 import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.store.entity.Review;
@@ -19,10 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -83,6 +81,17 @@ public class ProductService {
                 .orElseThrow(() -> {
                     throw new ProductNotFoundException();
                 });
+    }
+
+    public boolean deleteProduct(Long id) throws IllegalAccessError{
+        Product product = productRepository.findById(id).orElseThrow(()-> new ProductNotFoundException());
+        try {
+            productRepository.delete((product));
+
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
 

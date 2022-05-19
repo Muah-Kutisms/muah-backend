@@ -14,7 +14,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "comments")
-public class Comment extends Base {
+public class
+Comment extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")

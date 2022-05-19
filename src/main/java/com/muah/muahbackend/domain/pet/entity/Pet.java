@@ -3,6 +3,8 @@ package com.muah.muahbackend.domain.pet.entity;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.entity.Base;
+import com.muah.muahbackend.global.vo.Image;
+import com.muah.muahbackend.global.vo.ImageType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="pets")
@@ -22,7 +25,7 @@ public class Pet extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User owner;
 
@@ -39,11 +42,34 @@ public class Pet extends Base {
     @Column(name="pet_birthdate")
     private LocalDate birthdate;
 
-
-    // TODO : 이미지 필드
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "imageUrl", column = @Column(name = "member_image_url")),
+            @AttributeOverride(name = "imageType", column = @Column(name = "member_image_type")),
+            @AttributeOverride(name = "imageName", column = @Column(name = "member_image_name")),
+            @AttributeOverride(name = "imageUUID", column = @Column(name = "member_image_uuid"))
+    })
+    private Image image;
 
     @OneToMany(mappedBy = "pet")
     private List<Sheet> sheets = new ArrayList<>();
+
+    public void uploadImage(Image image) {
+        deleteImage();
+        this.image = image;
+    }
+
+    public void deleteImage() {
+        if (this.image.getImageUUID().equals("base-UUID"))
+            return;
+
+        this.image = Image.builder()
+                .imageName("base")
+                .imageType(ImageType.JPG)
+                .imageUrl("https://muah-bucket.s3.ap-northeast-2.amazonaws.com/pet/base-UUID_base.jpg")
+                .imageUUID("base-UUID")
+                .build();
+    }
 
     @Builder
     public Pet(User owner, String name, Gender gender, BigDecimal weight, LocalDate birthdate){
@@ -53,7 +79,12 @@ public class Pet extends Base {
         this.weight = weight;
         this.birthdate = birthdate;
 
-        // TODO : 이미지 기본이미지로 초기화 (image builder)
+        this.image = Image.builder()
+                .imageName("base")
+                .imageType(ImageType.JPG)
+                .imageUrl("https://muah-bucket.s3.ap-northeast-2.amazonaws.com/pet/base-UUID_base.jpg")
+                .imageUUID("base-UUID")
+                .build();
     }
 
 }

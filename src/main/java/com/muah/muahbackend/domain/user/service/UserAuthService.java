@@ -6,7 +6,7 @@ import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.InvalidRefreshTokenException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
-import com.muah.muahbackend.infra.util.TokenProvider;
+import com.muah.muahbackend.global.util.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

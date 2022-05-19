@@ -1,4 +1,4 @@
-package com.muah.muahbackend.infra.config;
+package com.muah.muahbackend.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
