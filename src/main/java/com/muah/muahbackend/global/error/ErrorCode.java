@@ -32,17 +32,18 @@ public enum ErrorCode {
     NO_AUTHORITY(403, "U004", "권한이 없습니다."),
     INVALID_TOKEN(400, "U005", "유효하지 않은 토큰입니다."),
 
-    //Product
-    PRODUCT_NOT_FOUND(400, "P001", "존재하지 않는 상품입니다."),
+    // Product
+    PRODUCT_NOT_FOUND(400, "P001", "존재 하지 않는 상품입니다."),
 
-
-    //Pet
+    // Pet
     PET_NOT_FOUND(400, "P001", "존재 하지 않는 반려동물 정보입니다."),
+
+    // Review
+    REVIEW_NOT_FOUND(400, "R001", "존재하지 않는 리뷰입니다."),
 
     //Sheet
     SHEET_NOT_FOUND(400, "S001", "존재하지 않는 견적서입니다."),
     ;
-
     private int status;
     private final String code;
     private final String message;

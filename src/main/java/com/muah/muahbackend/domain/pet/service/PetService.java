@@ -2,18 +2,22 @@ package com.muah.muahbackend.domain.pet.service;
 
 import com.muah.muahbackend.domain.pet.dto.PetDto;
 import com.muah.muahbackend.domain.pet.dto.PetInfoUpdateDto;
+import com.muah.muahbackend.domain.pet.dto.PetRegisterRequest;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.pet.repository.PetRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.PetNotFoundException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
+import com.muah.muahbackend.global.vo.Image;
+import com.muah.muahbackend.infra.aws.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Collection;
 import java.util.List;
@@ -28,6 +32,8 @@ public class PetService {
 
     private final PetRepository petRepository;
     private final UserRepository userRepository;
+
+    private final S3Uploader s3Uploader;
 
     @Transactional(readOnly = true)
     public List<PetDto> getPetList() {
@@ -60,18 +66,17 @@ public class PetService {
     }
 
     @Transactional
-    public Pet createPetInfo(PetDto petInfo){
+    public Pet createPetInfo(PetRegisterRequest petInfo){
         System.out.printf("서비스 접근" + petInfo.getUserId());
-        Optional<User> user = userRepository.findById(petInfo.getUserId());
-        System.out.printf(String.valueOf(user.get()));
+        User user = userRepository.findById(petInfo.getUserId()).orElseThrow(() -> new UserNotFoundException());
+
         Pet pet = Pet.builder()
                 .name(petInfo.getName())
-                .owner(user.get())
+                .owner(user)
                 .gender(petInfo.getGender())
                 .weight(petInfo.getWeight())
                 .birthdate(petInfo.getBirthdate())
                 .build();
-        System.out.printf(String.valueOf(user.get()));
         return petRepository.save(pet);
     }
 
@@ -97,5 +102,29 @@ public class PetService {
             return true;
         }
         return false;
+    }
+
+    @Transactional
+    public void uploadPetImage(MultipartFile uploadImage, Long id){
+        Pet pet = petRepository.findById(id).orElseThrow(()->new PetNotFoundException());
+
+        //기존 펫 사진 삭제
+        Image prevImage = pet.getImage();
+        s3Uploader.deleteImage("pet", prevImage);
+
+        Image image = s3Uploader.uploadImage(uploadImage, "pet");
+        pet.uploadImage(image);
+        petRepository.save(pet);
+    }
+
+    @Transactional
+    public void deletePetImage(Long id){
+        Pet pet = petRepository.findById(id).orElseThrow(()->new PetNotFoundException());
+
+        //기존 펫 사진 삭제
+        Image image = pet.getImage();
+        s3Uploader.deleteImage("pet", image);
+
+        petRepository.save(pet);
     }
 }

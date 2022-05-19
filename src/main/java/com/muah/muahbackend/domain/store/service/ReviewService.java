@@ -8,6 +8,7 @@ import com.muah.muahbackend.domain.store.repository.ReviewRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.ProductNotFoundException;
+import com.muah.muahbackend.global.error.exception.ReviewNotFoundException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +33,7 @@ public class ReviewService {
     private final UserRepository userRepository;
 
     @Transactional
-    public ReviewUploadResponse uploadProduct(ReviewUploadRequest request){
+    public ReviewUploadResponse uploadReview(ReviewUploadRequest request){
         Product product = productRepository.findById(request.getProductId()).orElseThrow(() -> new ProductNotFoundException());
         User writer = userRepository.findById(request.getWriterId()).orElseThrow(() -> new UserNotFoundException());
 
@@ -58,6 +59,16 @@ public class ReviewService {
         Collection<Review> reviewsData = reviewRepository.findAllByWriter(user);
         List<ReviewDto> reviews = reviewsData.stream().map(r -> new ReviewDto(r)).collect(toCollection(ArrayList::new));
         return reviews;
+    }
+
+    public boolean deleteReview(Long id) throws IllegalAccessError{
+        Review review = reviewRepository.findById(id).orElseThrow(()-> new ReviewNotFoundException());
+        try {
+            reviewRepository.delete((review));
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
 }
