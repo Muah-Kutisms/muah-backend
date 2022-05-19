@@ -30,7 +30,7 @@ public class Instructor extends Base {
     @Lob
     private String content;
 
-    // TODO : 이미지 필드
+
     @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "imageUrl", column = @Column(name = "instructor_image_url")),
@@ -63,7 +63,6 @@ public class Instructor extends Base {
     public Instructor(User instructor, String content) {
         this.instructor = instructor;
         this.content = content;
-
         this.image = Image.builder()
                 .imageName("base")
                 .imageType(ImageType.PNG)
