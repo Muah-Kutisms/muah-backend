@@ -66,7 +66,7 @@ public class InstructorController {
     @DeleteMapping("/{id}")
     public ResponseEntity<ResultResponse> deleteSheet(@PathVariable Long id){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.DELETE_SHEET_SUCCESS, instructorService.deleteInstructor(id));
+        response = ResultResponse.of(ResultCode.DELETE_INSTRUCTOR_SUCCESS, instructorService.deleteInstructor(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }

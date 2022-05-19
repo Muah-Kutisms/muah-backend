@@ -1,29 +1,21 @@
 package com.muah.muahbackend.domain.instructor.service;
 
-import com.muah.muahbackend.domain.estimate.entity.Sheet;
+
 import com.muah.muahbackend.domain.instructor.Dto.InstructorDto;
 import com.muah.muahbackend.domain.instructor.Dto.InstructorRegisterRequest;
+import com.muah.muahbackend.domain.instructor.Dto.InstructorRegisterResponse;
 import com.muah.muahbackend.domain.instructor.Dto.InstructorUpdateDto;
 import com.muah.muahbackend.domain.instructor.entity.Instructor;
 import com.muah.muahbackend.domain.instructor.repository.InstructorRepository;
-import com.muah.muahbackend.domain.pet.dto.PetDto;
-import com.muah.muahbackend.domain.pet.dto.PetInfoUpdateDto;
-import com.muah.muahbackend.domain.pet.dto.PetRegisterRequest;
-import com.muah.muahbackend.domain.pet.entity.Pet;
-import com.muah.muahbackend.domain.pet.repository.PetRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.InstructorNotFoundException;
-import com.muah.muahbackend.global.error.exception.PetNotFoundException;
-import com.muah.muahbackend.global.error.exception.SheetNotFoundException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import com.muah.muahbackend.global.vo.Image;
 import com.muah.muahbackend.infra.aws.S3Uploader;
 import io.swagger.models.auth.In;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -59,13 +51,17 @@ public class InstructorService {
     }
 
     @Transactional
-    public Instructor createInstructorInfo(InstructorRegisterRequest request){
-        User user = userRepository.findById(request.getUserId()).orElseThrow(() -> new UserNotFoundException());
+    public InstructorRegisterResponse createInstructorInfo(InstructorRegisterRequest request){
+        Long id = request.getUserId();
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+
         Instructor instructor = Instructor.builder()
                 .instructor(user)
                 .content(request.getContent())
                 .build();
-        return instructorRepository.save(instructor);
+
+        return new InstructorRegisterResponse(instructorRepository.save(instructor).getId());
+
     }
 
 
