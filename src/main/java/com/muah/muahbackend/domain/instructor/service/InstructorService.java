@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
+
+import static com.muah.muahbackend.domain.user.entity.UserRole.ROLE_INSTRUCTOR;
 import static java.util.stream.Collectors.toCollection;
 import java.util.Optional;
 
@@ -54,7 +56,7 @@ public class InstructorService {
     public InstructorRegisterResponse createInstructorInfo(InstructorRegisterRequest request){
         Long id = request.getUserId();
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
-
+        user.setRole(ROLE_INSTRUCTOR);
         Instructor instructor = Instructor.builder()
                 .instructor(user)
                 .content(request.getContent())
