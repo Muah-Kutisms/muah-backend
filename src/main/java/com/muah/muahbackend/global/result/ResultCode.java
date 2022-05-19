@@ -44,6 +44,18 @@ public enum ResultCode {
     UPDATE_SHEET_SUCCESS(200,"S003","견적서 정보를 업데이트했습니다."),
     DELETE_SHEET_SUCCESS(200,"S004","견적서 삭제에 성공했습니다."),
 
+
+    //Instructor
+    GET_INSTRUCTOR_SUCCESS(200,"I001","장례지도사 조회에 성공했습니다."),
+    CREATE_INSTRUCTOR_SUCCESS(200,"I002","장례지도사 생성에 성공했습니다."),
+    UPDATE_INSTRUCTOR_SUCCESS(200,"I003","장례지도사 정보를 업데이트했습니다."),
+    DELETE_INSTRUCTOR_SUCCESS(200,"I004","장례지도사 삭제에 성공했습니다."),
+    UPLOAD_INSTRUCTOR_IMAGE_SUCCESS(200, "I005","장례지도사 이미지 업로드를 성공했습니다."),
+    DELETE_INSTRUCTOR_IMAGE_SUCCESS(200, "I006","장례지도사 이미지 삭제를 성공했습니다. 기본 이미지로 설정됩니다."),
+
+
+
+
     ;
 
 

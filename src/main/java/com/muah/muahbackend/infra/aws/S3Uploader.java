@@ -41,6 +41,7 @@ public class S3Uploader {
             final Image image = ImageUtil.convertMultipartToImage(multipartFile);
             final String url = upload(multipartFile, dirName, image.getImageUUID(),
                     image.getImageName(), image.getImageType().toString().toLowerCase());
+
             image.setUrl(url);
             return image;
         } catch (IOException e) {
@@ -65,6 +66,7 @@ public class S3Uploader {
     private String upload(File uploadFile, String dirName, String UUID, String name, String type) {
         String fileName = dirName + "/" + UUID + "_" + name + "." + type;
         String uploadImageUrl = putS3(uploadFile, fileName);
+
         removeNewFile(uploadFile);
         return uploadImageUrl;
     }
@@ -88,6 +90,7 @@ public class S3Uploader {
 
     private Optional<File> convert(MultipartFile file) throws IOException {
         File convertFile = new File(System.getProperty("user.dir") + "\\upload\\" + file.getOriginalFilename());
+
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
                 fos.write(file.getBytes());

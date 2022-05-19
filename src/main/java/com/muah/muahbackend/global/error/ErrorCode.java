@@ -43,6 +43,9 @@ public enum ErrorCode {
 
     //Sheet
     SHEET_NOT_FOUND(400, "S001", "존재하지 않는 견적서입니다."),
+
+    //Instructor
+    INSTRUCTOR_NOT_FOUND(400, "I001","존재하지 않는 장례지도사입니다."),
     ;
     private int status;
     private final String code;
