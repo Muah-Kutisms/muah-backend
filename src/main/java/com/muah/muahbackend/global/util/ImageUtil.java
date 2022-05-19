@@ -37,4 +37,13 @@ public class ImageUtil {
                 .imageUUID("base-UUID")
                 .build();
     }
+
+    public static Image getBaseInstructorImage(){
+        return Image.builder()
+                .imageName("base")
+                .imageType(ImageType.PNG)
+                .imageUrl("https://muah-bucket.s3.ap-northeast-2.amazonaws.com/instructor/base-UUID_base.png")
+                .imageUUID("base-UUID")
+                .build();
+    }
 }
