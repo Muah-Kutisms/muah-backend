@@ -2,15 +2,13 @@ package com.muah.muahbackend.domain.estimate.entity;
 
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.entity.Base;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name="proposals")
 public class Proposal extends Base {

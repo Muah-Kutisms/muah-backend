@@ -54,6 +54,11 @@ public enum ResultCode {
     DELETE_INSTRUCTOR_IMAGE_SUCCESS(200, "I006","장례지도사 이미지 삭제를 성공했습니다. 기본 이미지로 설정됩니다."),
 
 
+    // Proposal
+    GET_PROPOSAL_SUCCESS(200,"P001","견적서 댓글 조회에 성공했습니다."),
+    CREATE_PROPOSAL_SUCCESS(200,"P002","견적서 댓글 생성에 성공했습니다."),
+    UPDATE_PROPOSAL_SUCCESS(200,"P003","견적서 댓글 정보를 업데이트했습니다."),
+    DELETE_PROPOSAL_SUCCESS(200,"P004","견적서 댓글 삭제에 성공했습니다."),
 
 
     ;

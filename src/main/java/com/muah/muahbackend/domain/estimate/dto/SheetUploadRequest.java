@@ -7,10 +7,7 @@ import lombok.*;
 
 
 
-@Getter
-@Setter
-@Builder
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
 public class SheetUploadRequest {
 
