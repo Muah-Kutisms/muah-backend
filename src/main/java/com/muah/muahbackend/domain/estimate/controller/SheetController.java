@@ -72,7 +72,7 @@ public class SheetController {
 
 
 
-    @ApiOperation(value = "id동물의 견적서 수정")
+    @ApiOperation(value = "id인 견적서 수정")
     @PutMapping("/estimate/customer/{id}")
     public ResponseEntity<ResultResponse> putSheet(@PathVariable Long id, @RequestBody SheetUpdateDto request){
         ResultResponse response;
@@ -92,7 +92,7 @@ public class SheetController {
     }
 
 
-    @ApiOperation(value = "id동물의 견적서 삭제")
+    @ApiOperation(value = "id인 견적서 삭제")
     @DeleteMapping("/estimate/customer/{id}")
     public ResponseEntity<ResultResponse> deleteSheet(@PathVariable Long id){
         ResultResponse response;
