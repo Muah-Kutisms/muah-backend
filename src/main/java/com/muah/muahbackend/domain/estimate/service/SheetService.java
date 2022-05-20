@@ -82,13 +82,10 @@ public class SheetService {
 
 
     @Transactional(readOnly = true)
-    public ArrayList<SheetDto> getSheets(Long id) {
-
-        Collection<Sheet> sheetsData = sheetRepository.findAllByPetId(id);
-        ArrayList<SheetDto> sheets = sheetsData.stream().map(s -> new SheetDto(s)).collect(toCollection(ArrayList::new));
-        System.out.println(sheets);                // 프린트 안해주면 계속 에러가 떠서 일단 놔두겠습니다,,
-        if (sheetsData.size() != 0) return sheets;
-        else throw new SheetNotFoundException();
+    public SheetDto getSheets(Long id) {
+        Sheet sheetData = sheetRepository.findById(id).orElseThrow(() -> new SheetNotFoundException());
+        SheetDto result = new SheetDto(sheetData);
+        return result;
     }
 
 

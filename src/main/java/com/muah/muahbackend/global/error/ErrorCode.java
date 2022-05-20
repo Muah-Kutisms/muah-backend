@@ -46,6 +46,9 @@ public enum ErrorCode {
 
     //Instructor
     INSTRUCTOR_NOT_FOUND(400, "I001","존재하지 않는 장례지도사입니다."),
+
+    //Proposal
+    PROPOSAL_NOT_FOUND(400,"P001","존재하지 않는 견적서 댓글입니다.")
     ;
     private int status;
     private final String code;
