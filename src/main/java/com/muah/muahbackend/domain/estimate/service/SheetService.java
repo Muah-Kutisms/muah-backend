@@ -85,7 +85,21 @@ public class SheetService {
     public SheetDto getSheets(Long id) {
         Sheet sheetData = sheetRepository.findById(id).orElseThrow(() -> new SheetNotFoundException());
         SheetDto result = new SheetDto(sheetData);
+        System.out.println(result);
         return result;
+    }
+
+    @Transactional(readOnly = true)
+    public ArrayList<SheetDto> getPetsheet(Long id){
+        Pet petData = petRepository.findById(id).orElseThrow(() -> new PetNotFoundException());
+        Long petId = petData.getId();
+
+        Collection<Sheet> sheetsData = sheetRepository.findAllByPetId(petId);
+
+        ArrayList<SheetDto> sheets = sheetsData.stream().map(s -> new SheetDto(s)).collect(toCollection(ArrayList::new));
+        System.out.println(sheets);
+
+        return sheets;
     }
 
 

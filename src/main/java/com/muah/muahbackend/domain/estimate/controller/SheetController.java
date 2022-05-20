@@ -54,7 +54,15 @@ public class SheetController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
-    @ApiOperation(value = "id동물의 견적서 조회")
+    @ApiOperation(value = "id 동물의 견적서 조회")
+    @GetMapping("/estimate/pet/{id}")
+    public ResponseEntity<ResultResponse> getPetSheet(@PathVariable Long id) {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getPetsheet(id));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ApiOperation(value = "id인 견적서 조회")
     @GetMapping("/estimate/{id}")
     public ResponseEntity<ResultResponse> getSheets(@PathVariable Long id) {
         ResultResponse response;
