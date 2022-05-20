@@ -3,9 +3,6 @@ package com.muah.muahbackend.domain.estimate.controller;
 import com.muah.muahbackend.domain.estimate.dto.SheetUpdateDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUploadRequest;
 import com.muah.muahbackend.domain.estimate.service.SheetService;
-import com.muah.muahbackend.domain.store.dto.ProductUpdateDto;
-import com.muah.muahbackend.domain.store.dto.ReviewUploadRequest;
-import com.muah.muahbackend.domain.user.dto.TokenRequestDto;
 import com.muah.muahbackend.domain.pet.service.PetService;
 import com.muah.muahbackend.global.result.ResultCode;
 import com.muah.muahbackend.global.result.ResultResponse;
@@ -54,7 +51,15 @@ public class SheetController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
-    @ApiOperation(value = "id동물의 견적서 조회")
+    @ApiOperation(value = "id 동물의 견적서 조회")
+    @GetMapping("/estimate/pet/{id}")
+    public ResponseEntity<ResultResponse> getPetSheet(@PathVariable Long id) {
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.GET_SHEET_SUCCESS, sheetService.getPetsheet(id));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+    @ApiOperation(value = "id인 견적서 조회")
     @GetMapping("/estimate/{id}")
     public ResponseEntity<ResultResponse> getSheets(@PathVariable Long id) {
         ResultResponse response;
@@ -64,7 +69,7 @@ public class SheetController {
 
 
 
-    @ApiOperation(value = "id동물의 견적서 수정")
+    @ApiOperation(value = "id인 견적서 수정")
     @PutMapping("/estimate/customer/{id}")
     public ResponseEntity<ResultResponse> putSheet(@PathVariable Long id, @RequestBody SheetUpdateDto request){
         ResultResponse response;
@@ -72,7 +77,6 @@ public class SheetController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
-
 
 
     @ApiOperation(value = "id동물의 견적서 생성")
@@ -85,8 +89,7 @@ public class SheetController {
     }
 
 
-
-    @ApiOperation(value = "id동물의 견적서 삭제")
+    @ApiOperation(value = "id인 견적서 삭제")
     @DeleteMapping("/estimate/customer/{id}")
     public ResponseEntity<ResultResponse> deleteSheet(@PathVariable Long id){
         ResultResponse response;
@@ -94,7 +97,6 @@ public class SheetController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
-
 
 
 }
