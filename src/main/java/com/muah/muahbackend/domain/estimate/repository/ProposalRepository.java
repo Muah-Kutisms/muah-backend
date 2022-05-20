@@ -1,7 +1,9 @@
 package com.muah.muahbackend.domain.estimate.repository;
 
 import com.muah.muahbackend.domain.estimate.entity.Proposal;
+import com.muah.muahbackend.domain.estimate.entity.ProposalStatus;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
+import com.muah.muahbackend.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,5 +17,8 @@ public interface ProposalRepository extends JpaRepository<Proposal, Long> {
 
     @Query("from Proposal p where p.sheet.id = :id")
     Collection<Proposal> findAllBySheetId(@Param("id") Long id);
+
+    @Query("from Proposal p where p.sheet.pet.owner = :user and p.status= 'RESERVED'")
+    Collection<Proposal> findReservedByPetOwner(@Param("user") User user);
 
 }

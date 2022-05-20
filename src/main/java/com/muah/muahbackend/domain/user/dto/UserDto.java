@@ -22,7 +22,7 @@ public class UserDto {
     private UserRole role;
     private Boolean isApproved;
     private Boolean isNew;
-    private List<PetDto> pets;
+    private int reservationCount;
 
     public UserDto(User user){
         this.id = user.getId();

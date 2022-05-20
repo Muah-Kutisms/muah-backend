@@ -1,5 +1,7 @@
 package com.muah.muahbackend.domain.user.service;
 
+import com.muah.muahbackend.domain.estimate.entity.Proposal;
+import com.muah.muahbackend.domain.estimate.repository.ProposalRepository;
 import com.muah.muahbackend.domain.pet.dto.PetDto;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.pet.repository.PetRepository;
@@ -29,6 +31,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PetRepository petRepository;
+    private final ProposalRepository proposalRepository;
 
     @Transactional
     public UserDto updateUserInfo(UserInfoUpdateDto updateInfo, Long id){
@@ -53,8 +56,7 @@ public class UserService {
         if (user.isPresent()) {
 
             UserDto response = new UserDto(user.get());
-            setPets(user.get(),response);
-
+            setReservationCount(user.get(), response);
             return response;
         }
         else{
@@ -62,12 +64,17 @@ public class UserService {
         }
     }
 
-    private void setPets(User owner, UserDto userDto) {
+    private void getPets(User owner, UserDto userDto) {
         Collection<Pet> petsData = petRepository.findAllByOwner(owner);
         ArrayList<PetDto> pets = petsData.stream().map(p-> new PetDto(p)).collect(toCollection(ArrayList::new));
         System.out.println(pets);
 
         userDto.setPets(pets);
+    }
+
+    private void setReservationCount(User user, UserDto userDto) {
+    Collection<Proposal> proposals = proposalRepository.findReservedByPetOwner(user);
+    userDto.setReservationCount(proposals.size());
     }
 
 }

@@ -33,14 +33,17 @@ public class Proposal extends Base {
     @Column(name="proposal_content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    // TODO : Add update functions
+    @Column(name="proposal_status")
+    @Enumerated(EnumType.STRING)
+    private ProposalStatus status;
 
     @Builder
-    public Proposal(Sheet sheet, User writer, Integer price, String content){
+    public Proposal(Sheet sheet, User writer, Integer price, String content, ProposalStatus status){
         this.sheet = sheet;
         this.writer = writer;
         this.price = price;
         this.content = content;
+        this.status = ProposalStatus.PROPOSED;
     }
 
 
