@@ -51,7 +51,7 @@ public class PetController {
                                                         @PathVariable Long id ) {
         ResultResponse response;
         try {
-            response = ResultResponse.of(ResultCode.UPDATE_SUCCESS,
+            response = ResultResponse.of(ResultCode.UPDATE_PET_SUCCESS,
                     petService.updatePetInfo(request, id));
         } catch (Exception e){
             response = ResultResponse.of(ResultCode.PET_FAIL, e.getMessage());
