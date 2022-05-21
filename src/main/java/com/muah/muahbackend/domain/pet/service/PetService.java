@@ -105,7 +105,7 @@ public class PetService {
     }
 
     @Transactional
-    public void uploadPetImage(MultipartFile uploadImage, Long id){
+    public void uploadUserImage(MultipartFile uploadImage, Long id){
         Pet pet = petRepository.findById(id).orElseThrow(()->new PetNotFoundException());
 
         //기존 펫 사진 삭제
@@ -118,7 +118,7 @@ public class PetService {
     }
 
     @Transactional
-    public void deletePetImage(Long id){
+    public void deleteUserImage(Long id){
         Pet pet = petRepository.findById(id).orElseThrow(()->new PetNotFoundException());
 
         //기존 펫 사진 삭제

@@ -1,10 +1,12 @@
 package com.muah.muahbackend.domain.user.service;
 
+import com.muah.muahbackend.domain.estimate.dto.ProposalDto;
 import com.muah.muahbackend.domain.estimate.entity.Proposal;
 import com.muah.muahbackend.domain.estimate.repository.ProposalRepository;
 import com.muah.muahbackend.domain.pet.dto.PetDto;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.pet.repository.PetRepository;
+import com.muah.muahbackend.domain.user.dto.FuneralUserDto;
 import com.muah.muahbackend.domain.user.dto.UserDto;
 import com.muah.muahbackend.domain.user.dto.UserInfoUpdateDto;
 import com.muah.muahbackend.domain.user.entity.User;
@@ -52,6 +54,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public UserDto getUserInfo(Long id){
+
         Optional<User> user = userRepository.findById(id);
         if (user.isPresent()) {
 
@@ -64,6 +67,17 @@ public class UserService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public FuneralUserDto getFuneralUserInfo(Long id){
+
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException());
+        FuneralUserDto response = new FuneralUserDto(user);
+        setReservedProposalList(user, response);
+        setCompletedProposalList(user, response);
+
+        return response;
+    }
+
     private void getPets(User owner, UserDto userDto) {
         Collection<Pet> petsData = petRepository.findAllByOwner(owner);
         ArrayList<PetDto> pets = petsData.stream().map(p-> new PetDto(p)).collect(toCollection(ArrayList::new));
@@ -72,8 +86,21 @@ public class UserService {
     }
 
     private void setReservationCount(User user, UserDto userDto) {
-    Collection<Proposal> proposals = proposalRepository.findReservedByPetOwner(user);
-    userDto.setReservationCount(proposals.size());
+        Collection<Proposal> proposals = proposalRepository.findReservedByPetOwner(user);
+        userDto.setReservationCount(proposals.size());
     }
 
+    private void setReservedProposalList(User user, FuneralUserDto funeralUserDto){
+        Collection<Proposal> proposalsData = proposalRepository.findReservedByWriter(user);
+        ArrayList<ProposalDto> proposals = proposalsData.stream().map
+                (p-> new ProposalDto(p)).collect(toCollection(ArrayList::new));
+        funeralUserDto.setReservedProposals(proposals);
+    }
+
+    private void setCompletedProposalList(User user, FuneralUserDto funeralUserDto) {
+        Collection<Proposal> proposalsData = proposalRepository.findCompletedByWriter(user);
+        ArrayList<ProposalDto> proposals = proposalsData.stream().map
+                (p-> new ProposalDto(p)).collect(toCollection(ArrayList::new));
+        funeralUserDto.setCompletedProposals(proposals);
+    }
 }

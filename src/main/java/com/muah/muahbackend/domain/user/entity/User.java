@@ -9,6 +9,8 @@ import com.muah.muahbackend.domain.store.entity.Order;
 import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.store.entity.Review;
 import com.muah.muahbackend.global.entity.Base;
+import com.muah.muahbackend.global.vo.Image;
+import com.muah.muahbackend.global.vo.ImageType;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -41,6 +43,12 @@ public class User extends Base {
     @Column(name = "user_name")
     private String name;
 
+    @Column(name = "user_nickname")
+    private String nickName;
+
+    @Column(name = "user_funeral_name")
+    private String funeralName;
+
     @Column(name = "user_phone")
     private String phone;
 
@@ -51,6 +59,15 @@ public class User extends Base {
             @AttributeOverride(name = "District", column = @Column(name = "user_district")),
     })
     private Address address;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "imageUrl", column = @Column(name = "user_image_url")),
+            @AttributeOverride(name = "imageType", column = @Column(name = "user_image_type")),
+            @AttributeOverride(name = "imageName", column = @Column(name = "user_image_name")),
+            @AttributeOverride(name = "imageUUID", column = @Column(name = "user_image_uuid"))
+    })
+    private Image image;
 
     @Column(name = "user_role", nullable = false)
     @Enumerated(EnumType.STRING)
@@ -109,6 +126,12 @@ public class User extends Base {
         this.isNew = true;
         this.role = UserRole.ROLE_USER;
         this.address = address;
+        this.image = Image.builder()
+                .imageName("base")
+                .imageType(ImageType.JPG)
+                .imageUrl("https://muah-bucket.s3.ap-northeast-2.amazonaws.com/user/base-UUID_base.jpg")
+                .imageUUID("base-UUID")
+                .build();
 
     }
 
@@ -123,6 +146,23 @@ public class User extends Base {
                 .County(country)
                 .build();
         this.address = address;
+    }
+
+    public void uploadImage(Image image) {
+        deleteImage();
+        this.image = image;
+    }
+
+    public void deleteImage() {
+        if (this.image.getImageUUID().equals("base-UUID"))
+            return;
+
+        this.image = Image.builder()
+                .imageName("base")
+                .imageType(ImageType.JPG)
+                .imageUrl("https://muah-bucket.s3.ap-northeast-2.amazonaws.com/user/base-UUID_base.jpg")
+                .imageUUID("base-UUID")
+                .build();
     }
 
 }

@@ -76,7 +76,7 @@ public class PetController {
     @PostMapping(value = "/image/{id}")
     public ResponseEntity<ResultResponse> uploadImage (@RequestParam MultipartFile uploadedImage,
                                                        @PathVariable Long id){
-        petService.uploadPetImage(uploadedImage,id);
+        petService.uploadUserImage(uploadedImage,id);
         ResultResponse result = ResultResponse.of(ResultCode.UPLOAD_PET_IMAGE_SUCCESS,null);
         return new ResponseEntity<>(result, HttpStatus.valueOf(result.getStatus()));
     }
@@ -84,7 +84,7 @@ public class PetController {
     @ApiOperation(value = "반려동물 사진 삭제")
     @DeleteMapping(value = "/image/{id}")
     public ResponseEntity<ResultResponse> deleteImage (@PathVariable Long id){
-        petService.deletePetImage(id);
+        petService.deleteUserImage(id);
         ResultResponse result = ResultResponse.of(ResultCode.DELETE_PET_IMAGE_SUCCESS,null);
         return new ResponseEntity<>(result, HttpStatus.valueOf(result.getStatus()));
     }
