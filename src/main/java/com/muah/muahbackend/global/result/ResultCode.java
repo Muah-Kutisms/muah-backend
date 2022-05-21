@@ -14,6 +14,8 @@ public enum ResultCode {
     UPDATE_SUCCESS(200, "U003", "유저정보를 업데이트했습니다."),
     UPDATE_FAIL(400, "U004", "유저정보를 업데이트에 실패했습니다."),
     GET_USER_SUCCESS(200,  "U005", "유저정보를 조회했습니다."),
+    UPLOAD_USER_IMAGE_SUCCESS(200, "U006", "유저 이미지 업로드를 성공했습니다."),
+    DELETE_USER_IMAGE_SUCCESS(200, "U007", "유저 이미지 삭제를 성공했습니다. 기본이미지로 설정됩니다."),
 
     // Product
     UPLOAD_PRODUCT_SUCCESS(200, "P001", "상품등록에 성공했습니다."),
