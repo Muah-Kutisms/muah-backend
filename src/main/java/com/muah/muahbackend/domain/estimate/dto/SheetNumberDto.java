@@ -1,5 +1,6 @@
 package com.muah.muahbackend.domain.estimate.dto;
 
+
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
 import com.muah.muahbackend.domain.estimate.entity.SheetFuneral;
 import com.muah.muahbackend.domain.estimate.entity.SheetStatus;
@@ -15,9 +16,10 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class SheetDto {
+public class SheetNumberDto {
     private Long id;
     private Long petId;
+    private int sheetNumberId;
     private String question;
     private String way;
     private String service;
@@ -28,9 +30,10 @@ public class SheetDto {
     private List<SheetFuneral> funerals;
 
 
-    public SheetDto(Sheet sheet){
+    public SheetNumberDto(Sheet sheet, int sheetNumberId){
         this.id = sheet.getId();
         this.petId = sheet.getPet().getId();
+        this.sheetNumberId = sheetNumberId;
         this.question = sheet.getQuestion();
         this.way = sheet.getWay();
         this.service = sheet.getService();

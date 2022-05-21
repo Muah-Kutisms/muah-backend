@@ -3,6 +3,8 @@ package com.muah.muahbackend.domain.estimate.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @NoArgsConstructor
 public class SheetUpdateDto {
@@ -12,5 +14,6 @@ public class SheetUpdateDto {
     private String way;
     private String service;
     private String location;
-    private String funeralDate;
+    private LocalDate funeralDate;
+    private String option;
 }

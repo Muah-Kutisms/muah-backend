@@ -2,6 +2,7 @@ package com.muah.muahbackend.domain.estimate.service;
 
 import com.muah.muahbackend.domain.estimate.dto.SheetDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUpdateDto;
+import com.muah.muahbackend.domain.estimate.dto.SheetNumberDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUploadRequest;
 import com.muah.muahbackend.domain.estimate.dto.SheetUploadResponse;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
@@ -10,10 +11,6 @@ import com.muah.muahbackend.domain.pet.dto.PetDto;
 import com.muah.muahbackend.domain.pet.dto.PetInfoUpdateDto;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.pet.repository.PetRepository;
-import com.muah.muahbackend.domain.store.dto.ProductDto;
-import com.muah.muahbackend.domain.store.dto.ProductMenuDto;
-import com.muah.muahbackend.domain.store.dto.ProductUpdateDto;
-import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.PetNotFoundException;
@@ -44,11 +41,16 @@ public class SheetService {
     private final PetRepository petRepository;
 
     @Transactional(readOnly = true)
-    public ArrayList<SheetDto> getSheetList() {
+    public ArrayList<SheetNumberDto> getSheetList() {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        ArrayList<SheetNumberDto> sheets = new ArrayList<>();
         String email;
         Long id;
+        ArrayList<SheetNumberDto> sheetList = new ArrayList<>();
+
+        int sheetTotalSize;
+        int sheetNumber;
 
         if (principal instanceof UserDetails) {
             email = ((UserDetails) principal).getUsername();
@@ -60,24 +62,36 @@ public class SheetService {
 
         Collection<Pet> petData = petRepository.findAllByOwner(user);
         ArrayList<PetDto> pets = petData.stream().map(r -> new PetDto(r)).collect(toCollection(ArrayList::new));
-
-        List<ArrayList> sheetsList = new ArrayList();
+        List<ArrayList> totalList = new ArrayList<>();
+        List<List> sheetsList = new ArrayList();
 
         if (pets.size() != 0){
             for (PetDto pet : pets) {
                 id = pet.getId();
-                Collection<Sheet> sheetsData = sheetRepository.findAllByPetId(id);
-                ArrayList<SheetDto> sheets = sheetsData.stream().map(s -> new SheetDto(s)).collect(toCollection(ArrayList::new));
+                List<Sheet> sheetsData = sheetRepository.findAllByPetIdArray(id);
 
-                if (sheets.size() != 0) sheetsList.add(sheets);}
+                //Sheet 오름차순 순서로 보내기
+                for (int i = 0; i < sheetsData.size() ;++i){
+
+                    int finalI = i;
+
+                    sheetList.add(new SheetNumberDto(sheetsData.get(i), finalI));
+                    System.out.println(sheetList);
+                  //  sheets = sheetsData.stream().map(s -> new SheetNumberDto(s, finalI)).collect(toCollection(ArrayList::new));
+                }
+
+
+//                totalList.add(sheetList);
+//                System.out.println(totalList);
+//                if (sheets.size() != 0) {
+//                    sheetsList.add(totalList);
+//                    System.out.println(sheetsList);
+//                }
+                }
+
         }else{throw new SheetNotFoundException();}
 
-        ArrayList<SheetDto> mergedList = new ArrayList<>();
-        for (ArrayList<SheetDto> sheet : sheetsList){
-            mergedList.addAll(sheet);
-        }
-        System.out.println(mergedList);             // 프린트 안해주면 계속 에러가 떠서 일단 놔두겠습니다,,
-        return mergedList;
+        return sheetList;
     }
 
 

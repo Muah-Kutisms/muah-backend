@@ -44,7 +44,10 @@ public class Sheet extends Base {
     private String question;
 
     @Column(name="sheet_funeral_date", nullable = false)
-    private String funeralDate;
+    private LocalDate funeralDate;
+
+    @Column(name="sheet_option")
+    private String option;
 
     @Column(name="sheet_way", nullable = false)
     private String way;
@@ -69,7 +72,7 @@ public class Sheet extends Base {
     // TODO : add update functions
 
     @Builder
-    public Sheet(Pet pet, String funeralDate, String question, String way, String service, String location){
+    public Sheet(Pet pet, LocalDate funeralDate, String option, String question, String way, String service, String location){
         this.pet = pet;
         this.petName = pet.getName();
         this.petGender = pet.getGender();
@@ -77,6 +80,7 @@ public class Sheet extends Base {
         this.birthdate = pet.getBirthdate();
         this.question = question;
         this.funeralDate = funeralDate;
+        this.option = option;
         this.way = way;
         this.service = service;
         this.location = location;

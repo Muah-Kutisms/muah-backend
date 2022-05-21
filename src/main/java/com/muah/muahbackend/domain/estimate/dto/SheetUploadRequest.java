@@ -5,6 +5,7 @@ import com.muah.muahbackend.domain.estimate.entity.SheetStatus;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import lombok.*;
 
+import java.time.LocalDate;
 
 
 @Data
@@ -16,7 +17,7 @@ public class SheetUploadRequest {
     private String way;
     private String service;
     private String location;
-    private String funeralDate;
-
+    private LocalDate funeralDate;
+    private String option;
 
 }
