@@ -1,8 +1,6 @@
 package com.muah.muahbackend.domain.estimate.repository;
 
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
-import com.muah.muahbackend.domain.pet.dto.PetDto;
-import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

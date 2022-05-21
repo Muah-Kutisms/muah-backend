@@ -65,21 +65,14 @@ public class SheetService {
             for (PetDto pet : pets) {
                 id = pet.getId();
                 List<Sheet> sheetsData = sheetRepository.findAllByPetIdArray(id);
-
-                //Sheet 오름차순 순서로 보내기
+                //Sheet 0,1,2, ... 순서로 보내기
                 for (int i = 0; i < sheetsData.size() ;++i){
-
                     int finalI = i;
 
                     sheetList.add(new SheetNumberDto(sheetsData.get(i), finalI));
-                    System.out.println(sheetList);
-
+                    System.out.println(sheetList); }
                 }
-
-                }
-
         }else{throw new SheetNotFoundException();}
-
         return sheetList;
     }
 
@@ -151,6 +144,8 @@ public class SheetService {
         sheetRepository.delete(sheet);
         return true;
     }
+
+
 
 }
 
