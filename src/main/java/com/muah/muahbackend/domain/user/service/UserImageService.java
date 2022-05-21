@@ -1,9 +1,7 @@
 package com.muah.muahbackend.domain.user.service;
 
-import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
-import com.muah.muahbackend.global.error.exception.PetNotFoundException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import com.muah.muahbackend.global.vo.Image;
 import com.muah.muahbackend.infra.aws.S3Uploader;

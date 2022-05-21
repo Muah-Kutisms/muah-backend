@@ -8,8 +8,10 @@ import com.muah.muahbackend.global.result.ResultCode;
 import com.muah.muahbackend.global.result.ResultResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import jdk.jfr.ContentType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,15 +33,17 @@ public class PetController {
     }
 
     @ApiOperation(value = "반려동물 정보 저장")
-    @PostMapping("/")
-    public ResponseEntity<ResultResponse> createPetInfo(@RequestBody PetRegisterRequest request) {
+    @PostMapping(value="/",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<ResultResponse> createPetInfo(@RequestPart PetRegisterRequest request,
+                                                        @RequestPart  MultipartFile imgFile) {
         ResultResponse response;
-        System.out.println("접속1" + request);
         try {
-            System.out.printf("접속2");
             response = ResultResponse.of(ResultCode.CREATE_PET_SUCCESS,
-                    new PetDto(petService.createPetInfo(request)));
+                    new PetDto(petService.createPetInfo(request, imgFile)));
         } catch (Exception e){
+            System.out.println(e.getCause());
             response = ResultResponse.of(ResultCode.PET_FAIL, e.getMessage());
         }
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));

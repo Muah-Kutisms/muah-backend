@@ -1,6 +1,5 @@
 package com.muah.muahbackend.domain.user.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.muah.muahbackend.domain.community.entity.Comment;
 import com.muah.muahbackend.domain.community.entity.Post;
 import com.muah.muahbackend.domain.instructor.entity.Instructor;
@@ -18,7 +17,6 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter

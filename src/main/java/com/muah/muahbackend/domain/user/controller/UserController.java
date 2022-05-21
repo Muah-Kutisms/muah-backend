@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -62,11 +63,12 @@ public class UserController {
     }
 
     @ApiOperation(value = "유저 사진 업로드")
-    @PostMapping(value = "/image/{id}")
-    public ResponseEntity<ResultResponse> uploadImage (@RequestParam MultipartFile uploadedImage,
+    @PostMapping(value = "/image/{id}",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<ResultResponse> uploadImage (@RequestPart MultipartFile imgFile,
                                                        @PathVariable Long id){
-        userImageService.uploadUserImage(uploadedImage,id);
-        ResultResponse result = ResultResponse.of(ResultCode.UPLOAD_PET_IMAGE_SUCCESS,null);
+        userImageService.uploadUserImage(imgFile,id);
+        ResultResponse result = ResultResponse.of(ResultCode.UPLOAD_USER_IMAGE_SUCCESS,null);
         return new ResponseEntity<>(result, HttpStatus.valueOf(result.getStatus()));
     }
 
@@ -74,7 +76,7 @@ public class UserController {
     @DeleteMapping(value = "/image/{id}")
     public ResponseEntity<ResultResponse> deleteImage (@PathVariable Long id){
         userImageService.deleteUserImage(id);
-        ResultResponse result = ResultResponse.of(ResultCode.DELETE_PET_IMAGE_SUCCESS,null);
+        ResultResponse result = ResultResponse.of(ResultCode.DELETE_USER_IMAGE_SUCCESS,null);
         return new ResponseEntity<>(result, HttpStatus.valueOf(result.getStatus()));
     }
 }

@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
 import java.util.ArrayList;
@@ -66,8 +68,8 @@ public class PetService {
     }
 
     @Transactional
-    public Pet createPetInfo(PetRegisterRequest petInfo){
-        System.out.printf("서비스 접근" + petInfo.getUserId());
+    public Pet createPetInfo(PetRegisterRequest petInfo, MultipartFile imgFile){
+
         User user = userRepository.findById(petInfo.getUserId()).orElseThrow(() -> new UserNotFoundException());
 
         Pet pet = Pet.builder()
@@ -75,8 +77,16 @@ public class PetService {
                 .owner(user)
                 .gender(petInfo.getGender())
                 .weight(petInfo.getWeight())
-                .birthdate(petInfo.getBirthdate())
+                .birthdate(LocalDate.parse(petInfo.getBirthdate(), DateTimeFormatter.ISO_DATE))
+                .kind(petInfo.getKind())
                 .build();
+
+        Image prevImage = pet.getImage();
+        s3Uploader.deleteImage("pet", prevImage);
+
+        Image image = s3Uploader.uploadImage(imgFile, "pet");
+        pet.uploadImage(image);
+        System.out.println("check4");
         return petRepository.save(pet);
     }
 

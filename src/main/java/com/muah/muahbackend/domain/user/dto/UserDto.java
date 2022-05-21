@@ -1,15 +1,10 @@
 package com.muah.muahbackend.domain.user.dto;
 
-import com.muah.muahbackend.domain.pet.dto.PetDto;
-import com.muah.muahbackend.domain.pet.entity.Pet;
-import com.muah.muahbackend.domain.user.entity.Address;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.entity.UserRole;
 import com.muah.muahbackend.global.vo.Image;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
