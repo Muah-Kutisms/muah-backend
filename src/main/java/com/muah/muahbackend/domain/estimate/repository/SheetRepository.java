@@ -18,6 +18,9 @@ public interface SheetRepository extends JpaRepository<Sheet, Long> {
     @Query("from Sheet s where s.pet.id = :id")
     Collection<Sheet> findAllByPetId(@Param("id") Long id);
 
+    @Query("from Sheet s where s.pet.id = :id")
+    List<Sheet> findAllByPetIdArray(@Param("id") Long id);
+
     @Query("from Sheet s where s.pet.owner = :user")
     Collection<Sheet> findAllByUser(@Param("user") User user);
 }
