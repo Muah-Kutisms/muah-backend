@@ -2,15 +2,12 @@ package com.muah.muahbackend.domain.pet.dto;
 
 import com.muah.muahbackend.domain.pet.entity.Gender;
 import com.muah.muahbackend.domain.pet.entity.Pet;
-import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.global.vo.Image;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @NoArgsConstructor

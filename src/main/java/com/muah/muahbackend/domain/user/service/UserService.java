@@ -10,7 +10,6 @@ import com.muah.muahbackend.domain.user.dto.FuneralUserDto;
 import com.muah.muahbackend.domain.user.dto.UserDto;
 import com.muah.muahbackend.domain.user.dto.UserInfoUpdateDto;
 import com.muah.muahbackend.domain.user.entity.User;
-import com.muah.muahbackend.domain.user.entity.UserRole;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Optional;
 
 import static java.util.stream.Collectors.toCollection;

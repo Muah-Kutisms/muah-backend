@@ -2,6 +2,7 @@ package com.muah.muahbackend.domain.user.controller;
 
 
 import com.muah.muahbackend.domain.user.repository.UserRepository;
+import com.muah.muahbackend.domain.user.service.FuneralCompanyService;
 import com.muah.muahbackend.domain.user.service.UserService;
 import com.muah.muahbackend.global.result.ResultCode;
 import com.muah.muahbackend.global.result.ResultResponse;
@@ -21,15 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "장례회사 API")
 public class FuneralCompanyController {
 
-    private UserService userService;
-    private UserRepository userRepository;
+    private final FuneralCompanyService funeralCompanyService;
 
-    @ApiOperation(value = "회사페이지")
+    @ApiOperation(value = "회사의 마이페이지")
     @GetMapping("/{id}")
     public ResponseEntity<ResultResponse> getCompnayPage(@PathVariable Long id){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.GET_USER_SUCCESS,
-                userService.getUserInfo(id));
+        response = ResultResponse.of(ResultCode.GET_PROPOSAL_SUCCESS,
+                funeralCompanyService.getSheets(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

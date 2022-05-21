@@ -2,31 +2,26 @@ package com.muah.muahbackend.domain.estimate.service;
 
 import com.muah.muahbackend.domain.estimate.dto.SheetDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUpdateDto;
-import com.muah.muahbackend.domain.estimate.dto.SheetNumberDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUploadRequest;
 import com.muah.muahbackend.domain.estimate.dto.SheetUploadResponse;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
 import com.muah.muahbackend.domain.estimate.repository.SheetRepository;
 import com.muah.muahbackend.domain.pet.dto.PetDto;
-import com.muah.muahbackend.domain.pet.dto.PetInfoUpdateDto;
 import com.muah.muahbackend.domain.pet.entity.Pet;
 import com.muah.muahbackend.domain.pet.repository.PetRepository;
 import com.muah.muahbackend.domain.user.entity.User;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.PetNotFoundException;
-import com.muah.muahbackend.global.error.exception.ProductNotFoundException;
 import com.muah.muahbackend.global.error.exception.SheetNotFoundException;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toCollection;
 
@@ -41,13 +36,11 @@ public class SheetService {
     private final PetRepository petRepository;
 
     @Transactional(readOnly = true)
-    public ArrayList<SheetNumberDto> getSheetList() {
+    public ArrayList<SheetDto> getSheetList() {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String email;
         Long id;
-        ArrayList<SheetNumberDto> sheetList = new ArrayList<>();
-
 
         if (principal instanceof UserDetails) {
             email = ((UserDetails) principal).getUsername();
@@ -60,27 +53,23 @@ public class SheetService {
         Collection<Pet> petData = petRepository.findAllByOwner(user);
         ArrayList<PetDto> pets = petData.stream().map(r -> new PetDto(r)).collect(toCollection(ArrayList::new));
 
+        List<ArrayList> sheetsList = new ArrayList();
 
         if (pets.size() != 0){
             for (PetDto pet : pets) {
                 id = pet.getId();
-                List<Sheet> sheetsData = sheetRepository.findAllByPetIdArray(id);
+                Collection<Sheet> sheetsData = sheetRepository.findAllByPetId(id);
+                ArrayList<SheetDto> sheets = sheetsData.stream().map(s -> new SheetDto(s)).collect(toCollection(ArrayList::new));
 
-                //Sheet 오름차순 순서로 보내기
-                for (int i = 0; i < sheetsData.size() ;++i){
-
-                    int finalI = i;
-
-                    sheetList.add(new SheetNumberDto(sheetsData.get(i), finalI));
-                    System.out.println(sheetList);
-
-                }
-
-                }
-
+                if (sheets.size() != 0) sheetsList.add(sheets);}
         }else{throw new SheetNotFoundException();}
 
-        return sheetList;
+        ArrayList<SheetDto> mergedList = new ArrayList<>();
+        for (ArrayList<SheetDto> sheet : sheetsList){
+            mergedList.addAll(sheet);
+        }
+        System.out.println(mergedList);             // 프린트 안해주면 계속 에러가 떠서 일단 놔두겠습니다,,
+        return mergedList;
     }
 
 
@@ -142,7 +131,7 @@ public class SheetService {
                 .orElseThrow(() -> {
                     throw new SheetNotFoundException();
                 });
-        }
+    }
 
 
     @Transactional
@@ -153,6 +142,5 @@ public class SheetService {
     }
 
 }
-
 
 
