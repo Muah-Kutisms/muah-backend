@@ -69,7 +69,6 @@ public class UserService {
         ArrayList<PetDto> pets = petsData.stream().map(p-> new PetDto(p)).collect(toCollection(ArrayList::new));
         System.out.println(pets);
 
-        userDto.setPets(pets);
     }
 
     private void setReservationCount(User user, UserDto userDto) {
