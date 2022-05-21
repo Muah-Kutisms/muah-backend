@@ -44,13 +44,10 @@ public class SheetService {
     public ArrayList<SheetNumberDto> getSheetList() {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        ArrayList<SheetNumberDto> sheets = new ArrayList<>();
         String email;
         Long id;
         ArrayList<SheetNumberDto> sheetList = new ArrayList<>();
 
-        int sheetTotalSize;
-        int sheetNumber;
 
         if (principal instanceof UserDetails) {
             email = ((UserDetails) principal).getUsername();
@@ -62,8 +59,7 @@ public class SheetService {
 
         Collection<Pet> petData = petRepository.findAllByOwner(user);
         ArrayList<PetDto> pets = petData.stream().map(r -> new PetDto(r)).collect(toCollection(ArrayList::new));
-        List<ArrayList> totalList = new ArrayList<>();
-        List<List> sheetsList = new ArrayList();
+
 
         if (pets.size() != 0){
             for (PetDto pet : pets) {
@@ -77,16 +73,9 @@ public class SheetService {
 
                     sheetList.add(new SheetNumberDto(sheetsData.get(i), finalI));
                     System.out.println(sheetList);
-                  //  sheets = sheetsData.stream().map(s -> new SheetNumberDto(s, finalI)).collect(toCollection(ArrayList::new));
+
                 }
 
-
-//                totalList.add(sheetList);
-//                System.out.println(totalList);
-//                if (sheets.size() != 0) {
-//                    sheetsList.add(totalList);
-//                    System.out.println(sheetsList);
-//                }
                 }
 
         }else{throw new SheetNotFoundException();}
