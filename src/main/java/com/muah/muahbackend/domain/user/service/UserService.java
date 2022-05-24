@@ -43,6 +43,7 @@ public class UserService {
                     user.setRole(updateInfo.getRole());
                     user.setIsNew(updateInfo.getIsNew());
                     user.setIsApproved(updateInfo.getIsApproved());
+                    user.setNickName(updateInfo.getNickName());
                     return new UserDto(userRepository.save(user));
                 })
                 .orElseThrow(() -> {

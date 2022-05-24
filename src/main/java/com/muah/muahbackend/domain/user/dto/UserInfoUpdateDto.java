@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class UserInfoUpdateDto {
 
     private String name;
+    private String nickName;
     private String phone;
     private AddressDto address;
     private UserRole role;
