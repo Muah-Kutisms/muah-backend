@@ -39,7 +39,7 @@ public class UserController {
             response = ResultResponse.of(ResultCode.UPDATE_SUCCESS,
                     userService.updateUserInfo(request, id));
         } catch (Exception e){
-            response = ResultResponse.of(ResultCode.REGISTER_FAIL, e.getMessage());
+            response = ResultResponse.of(ResultCode.UPDATE_FAIL, e.getMessage());
         }
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
@@ -51,7 +51,8 @@ public class UserController {
                                                   HttpServletRequest req){
         ResultResponse response;
         String role = req.getParameter("role").toUpperCase();
-        if (role == "USER"){
+        System.out.println(role);
+        if (role.equals("USER")){
             response = ResultResponse.of(ResultCode.GET_USER_SUCCESS,
                     userService.getUserInfo(id));
         }

@@ -44,6 +44,7 @@ public class UserService {
                     user.setIsNew(updateInfo.getIsNew());
                     user.setIsApproved(updateInfo.getIsApproved());
                     user.setNickName(updateInfo.getNickName());
+                    user.setFuneralName(updateInfo.getFuneralName());
                     return new UserDto(userRepository.save(user));
                 })
                 .orElseThrow(() -> {

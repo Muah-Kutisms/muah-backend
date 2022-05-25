@@ -11,6 +11,7 @@ public class UserInfoUpdateDto {
 
     private String name;
     private String nickName;
+    private String funeralName;
     private String phone;
     private AddressDto address;
     private UserRole role;
