@@ -17,7 +17,7 @@ public class PetRegisterRequest {
 
     private String name;
 
-    private Gender gender;
+  //  private Gender gender;
 
     private BigDecimal weight;
 
