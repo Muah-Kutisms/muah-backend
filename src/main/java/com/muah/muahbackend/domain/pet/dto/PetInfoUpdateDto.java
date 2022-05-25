@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class PetInfoUpdateDto {
 
     private String name;
-    private Gender gender;
+//    private Gender gender;
     private BigDecimal weight;
     private LocalDate birthdate;
 

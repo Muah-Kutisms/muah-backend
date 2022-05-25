@@ -75,7 +75,7 @@ public class PetService {
         Pet pet = Pet.builder()
                 .name(petInfo.getName())
                 .owner(user)
-                .gender(petInfo.getGender())
+               // .gender(petInfo.getGender())
                 .weight(petInfo.getWeight())
                 .birthdate(LocalDate.parse(petInfo.getBirthdate(), DateTimeFormatter.ISO_DATE))
                 .kind(petInfo.getKind())
@@ -86,7 +86,7 @@ public class PetService {
 
         Image image = s3Uploader.uploadImage(imgFile, "pet");
         pet.uploadImage(image);
-        System.out.println("check4");
+        System.out.println(pet);
         return petRepository.save(pet);
     }
 
@@ -95,7 +95,7 @@ public class PetService {
         return petRepository.findById(id)
                 .map(pet -> {
                     pet.setName(petInfo.getName());
-                    pet.setGender(petInfo.getGender());
+                 //   pet.setGender(petInfo.getGender());
                     pet.setWeight(petInfo.getWeight());
                     pet.setBirthdate(petInfo.getBirthdate());
                     return new PetDto(petRepository.save(pet));

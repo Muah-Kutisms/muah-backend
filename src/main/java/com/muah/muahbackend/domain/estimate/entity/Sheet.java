@@ -30,9 +30,9 @@ public class Sheet extends Base {
     @Column(name="sheet_pet_name")
     private String petName;
 
-    @Column(name="sheet_pet_gender")
-    @Enumerated(EnumType.STRING)
-    private Gender petGender;
+//    @Column(name="sheet_pet_gender")
+//    @Enumerated(EnumType.STRING)
+//    private Gender petGender;
 
     @Column(name="sheet_pet_weight", scale = 1)
     private BigDecimal petWeight;
@@ -75,7 +75,7 @@ public class Sheet extends Base {
     public Sheet(Pet pet, LocalDate funeralDate, String option, String question, String way, String service, String location){
         this.pet = pet;
         this.petName = pet.getName();
-        this.petGender = pet.getGender();
+    //    this.petGender = pet.getGender();
         this.petWeight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
         this.question = question;

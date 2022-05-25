@@ -16,7 +16,7 @@ public class PetDto {
     private Long id;
     private String name;
 
-    private Gender gender;
+ //   private Gender gender;
 
     private BigDecimal weight;
 
@@ -30,7 +30,7 @@ public class PetDto {
     public PetDto(Pet pet){
         this.id = pet.getId();
         this.name = pet.getName();
-        this.gender = pet.getGender();
+     //   this.gender = pet.getGender();
         this.weight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
         this.image = pet.getImage();

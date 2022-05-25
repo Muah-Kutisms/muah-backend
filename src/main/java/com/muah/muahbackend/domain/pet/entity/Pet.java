@@ -35,9 +35,9 @@ public class Pet extends Base {
     @Column(name="pet_kind")
     private String kind;
 
-    @Column(name="pet_gender")
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+//    @Column(name="pet_gender")
+//    @Enumerated(EnumType.STRING)
+//    private Gender gender;
 
     @Column(name="pet_weight", scale = 1)
     private BigDecimal weight;
@@ -78,7 +78,7 @@ public class Pet extends Base {
     public Pet(User owner, String name, Gender gender, BigDecimal weight, LocalDate birthdate, String kind){
         this.owner = owner;
         this.name = name;
-        this.gender = gender;
+       // this.gender = gender;
         this.weight = weight;
         this.birthdate = birthdate;
         this.kind = kind;
