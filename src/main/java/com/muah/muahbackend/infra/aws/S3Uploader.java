@@ -31,14 +31,12 @@ public class S3Uploader {
     public String upload(MultipartFile multipartFile, String dirName, String UUID, String name, String type) throws IOException {
         File uploadFile = convert(multipartFile)
                 .orElseThrow(CantConvertFileException::new);
-
         return upload(uploadFile, dirName, UUID, name, type);
     }
 
     // S3로 파일 업로드하기
     public Image uploadImage(MultipartFile multipartFile, String dirName) {
         try {
-            System.out.println("멀티파트 > 이미지 convert 시작");
             final Image image = ImageUtil.convertMultipartToImage(multipartFile);
             System.out.println("이미지 url 만들기");
             final String url = upload(multipartFile, dirName, image.getImageUUID(),
@@ -69,6 +67,7 @@ public class S3Uploader {
 
     private String upload(File uploadFile, String dirName, String UUID, String name, String type) {
         String fileName = dirName + "/" + UUID + "_" + name + "." + type;
+        System.out.println("s3에 업로드");
         String uploadImageUrl = putS3(uploadFile, fileName);
 
         removeNewFile(uploadFile);
@@ -93,10 +92,13 @@ public class S3Uploader {
 
 
     private Optional<File> convert(MultipartFile file) throws IOException {
+        System.out.println("convert Multipart > File");
         File convertFile = new File(System.getProperty("user.dir") + "\\upload\\" + file.getOriginalFilename());
-
+        System.out.println("루트 사용자에게 해당 파일 접근 권한 주기");
+        Runtime.getRuntime().exec("chmod -R 777 " + convertFile);
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
+                System.out.println("파일 바이트 스트림으로 저장");
                 fos.write(file.getBytes());
             }
             return Optional.of(convertFile);
