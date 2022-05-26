@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -16,4 +17,5 @@ public class SheetUpdateDto {
     private String location;
     private LocalDate funeralDate;
     private String option;
+
 }

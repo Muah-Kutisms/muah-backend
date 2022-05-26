@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum ResultCode {
     // AUTH
     REGISTER_SUCCESS(200, "A001", "로그인에 성공하였습니다."),
-    REGISTER_FAIL(200, "A002", "로그인에 실패했습니다."),
+    REGISTER_FAIL(400, "A002", "로그인에 실패했습니다."),
 
     // User
     UPDATE_SUCCESS(200, "U003", "유저정보를 업데이트했습니다."),

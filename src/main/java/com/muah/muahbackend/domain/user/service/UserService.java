@@ -38,6 +38,7 @@ public class UserService {
         return userRepository.findById(id)
                 .map(user -> {
                     user.setName(updateInfo.getName());
+                   // user.setEmail(updateInfo.get);
                     user.setPhone(updateInfo.getPhone());
                     user.setAddress(updateInfo.getAddress().convert());
                     user.setRole(updateInfo.getRole());

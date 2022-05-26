@@ -33,4 +33,14 @@ public class FuneralCompanyController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
+    @ApiOperation(value = "댓글 달아 줄 전체 sheet 보기")
+    @GetMapping("/")
+    public ResponseEntity<ResultResponse> getAllSheets(){
+        ResultResponse response;
+        response = ResultResponse.of(ResultCode.GET_PROPOSAL_SUCCESS,
+                funeralCompanyService.getAllSheets());
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
+    }
+
+
 }

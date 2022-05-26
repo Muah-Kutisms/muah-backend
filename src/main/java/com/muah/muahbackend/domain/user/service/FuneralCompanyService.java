@@ -6,12 +6,16 @@ import com.muah.muahbackend.domain.estimate.dto.SheetNumberDto;
 import com.muah.muahbackend.domain.estimate.entity.Proposal;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
 import com.muah.muahbackend.domain.estimate.repository.ProposalRepository;
+import com.muah.muahbackend.domain.estimate.repository.SheetRepository;
+import com.muah.muahbackend.domain.store.dto.ProductMenuDto;
+import com.muah.muahbackend.domain.store.entity.Product;
 import com.muah.muahbackend.domain.user.dto.FuneralUserDto;
 import com.muah.muahbackend.domain.user.repository.FuneralCompanyRepository;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +35,7 @@ public class FuneralCompanyService {
     private final FuneralCompanyRepository funeralCompanyRepository;
     private final UserRepository userRepository;
     private final ProposalRepository proposalRepository;
+    private final SheetRepository sheetRepository;
 
     @Transactional(readOnly = true)
     public ArrayList getSheets(Long id){
@@ -78,5 +83,13 @@ public class FuneralCompanyService {
         response.add(mergedComplete);
 
         return response;
+    }
+
+    @Transactional(readOnly = true)
+    public ArrayList getAllSheets(){
+
+        List<Sheet> sheets= sheetRepository.findAll();
+        ArrayList<SheetDto> sheetList = sheets.stream().map(s-> new SheetDto(s)).collect(toCollection(ArrayList::new));
+        return sheetList;
     }
 }

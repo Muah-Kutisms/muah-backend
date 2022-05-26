@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -23,6 +24,7 @@ public class SheetNumberDto {
     private String location;
     private LocalDate funeralDate;
     private String option;
+    private LocalDateTime createdDate;
     private SheetStatus status;
     private List<SheetFuneral> funerals;
 
@@ -39,7 +41,7 @@ public class SheetNumberDto {
         this.option = sheet.getOption();
         this.status = sheet.getStatus();
         this.funerals = sheet.getFunerals();
-
+        this.createdDate = sheet.getCreatedAt();
     }
 
 
