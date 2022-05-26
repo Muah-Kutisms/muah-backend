@@ -39,26 +39,18 @@ public class UserController {
             response = ResultResponse.of(ResultCode.UPDATE_SUCCESS,
                     userService.updateUserInfo(request, id));
         } catch (Exception e){
-            response = ResultResponse.of(ResultCode.REGISTER_FAIL, e.getMessage());
+            response = ResultResponse.of(ResultCode.UPDATE_FAIL, e.getMessage());
         }
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 
     @ApiOperation(value = "유저 조회")
     @GetMapping("/{id}")
-    @ApiImplicitParam(name = "role", dataType = "string", paramType = "query",value = "role")
-    public ResponseEntity<ResultResponse> getUser(@PathVariable Long id,
-                                                  HttpServletRequest req){
+    public ResponseEntity<ResultResponse> getUser(@PathVariable Long id){
         ResultResponse response;
-        String role = req.getParameter("role").toUpperCase();
-        if (role == "USER"){
-            response = ResultResponse.of(ResultCode.GET_USER_SUCCESS,
-                    userService.getUserInfo(id));
-        }
-        else{
-            response = ResultResponse.of(ResultCode.GET_USER_SUCCESS,
-                    userService.getFuneralUserInfo(id));
-        }
+
+        response = ResultResponse.of(ResultCode.GET_USER_SUCCESS,
+                userService.getUserInfo(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
     }
 

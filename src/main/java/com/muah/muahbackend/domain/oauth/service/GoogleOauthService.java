@@ -49,7 +49,8 @@ public class GoogleOauthService {
         params.put("scope", "email%20profile%20openid");
         params.put("response_type", "code");
         params.put("client_id", GOOGLE_CLIENT_ID);
-        params.put("redirect_uri", GOOGLE_CALLBACK_URL);
+        params.put("redirect_uri", "http://localhost:8080/auth/google/callback");
+
 
         String parameterString = params.entrySet().stream()
                 .map(x -> x.getKey() + "=" + x.getValue())

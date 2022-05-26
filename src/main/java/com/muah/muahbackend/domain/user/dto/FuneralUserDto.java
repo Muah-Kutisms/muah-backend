@@ -11,9 +11,9 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class FuneralUserDto {
+public class FuneralUserDto extends UserDto{
 
-    private Long id;
+
     private String funeralName;
     private Address address;
     private Image image;
@@ -22,6 +22,7 @@ public class FuneralUserDto {
 
     public FuneralUserDto(User user){
         this.id = user.getId();
+        this.role = user.getRole();
         this.funeralName = user.getFuneralName();
         this.address = user.getAddress();
         this.image = user.getImage();
