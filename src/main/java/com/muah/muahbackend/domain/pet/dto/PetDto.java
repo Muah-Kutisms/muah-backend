@@ -26,11 +26,14 @@ public class PetDto {
 
     private Long userId;
 
+    private String kind;
+
 
     public PetDto(Pet pet){
         this.id = pet.getId();
         this.name = pet.getName();
      //   this.gender = pet.getGender();
+        this.kind = pet.getKind();
         this.weight = pet.getWeight();
         this.birthdate = pet.getBirthdate();
         this.image = pet.getImage();
