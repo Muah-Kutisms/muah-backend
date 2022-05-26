@@ -27,6 +27,7 @@ public class UserImageService {
         //기존 유저 사진 삭제
         Image prevImage = user.getImage();
         s3Uploader.deleteImage("user", prevImage);
+        System.out.println("기존이미지 삭제 ");
 
         Image image = s3Uploader.uploadImage(uploadImage, "user");
         user.uploadImage(image);

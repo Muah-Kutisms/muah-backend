@@ -13,13 +13,16 @@ public class ImageUtil {
 
     public static Image convertMultipartToImage(MultipartFile file){
 
+        System.out.println("check1");
         String originalName = file.getOriginalFilename();
+        System.out.println("check2 "+ originalName);
         String name = FilenameUtils.getBaseName(originalName);
+        System.out.println("check3"+ name);
         String type = FilenameUtils.getExtension(originalName).toUpperCase();
-
+        System.out.println("check4" + type);
         if(!Enums.getIfPresent(ImageType.class, type).isPresent())
             throw new NotSupportImageTypeException();
-
+        System.out.println("check5");
         Image image = Image.builder()
                 .imageType(ImageType.valueOf(type))
                 .imageName(name)

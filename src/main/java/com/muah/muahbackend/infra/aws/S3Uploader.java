@@ -38,13 +38,17 @@ public class S3Uploader {
     // S3로 파일 업로드하기
     public Image uploadImage(MultipartFile multipartFile, String dirName) {
         try {
+            System.out.println("멀티파트 > 이미지 convert 시작");
             final Image image = ImageUtil.convertMultipartToImage(multipartFile);
+            System.out.println("이미지 url 만들기");
             final String url = upload(multipartFile, dirName, image.getImageUUID(),
                     image.getImageName(), image.getImageType().toString().toLowerCase());
-
+            System.out.println("이미지에 url 세팅");
             image.setUrl(url);
             return image;
         } catch (IOException e) {
+            System.out.println("원인" + e.getCause());
+            System.out.println("io exception 메세지 : " + e.getMessage());
             throw new RuntimeException();
         }
     }
