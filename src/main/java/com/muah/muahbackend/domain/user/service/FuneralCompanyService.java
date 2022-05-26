@@ -86,10 +86,11 @@ public class FuneralCompanyService {
     }
 
     @Transactional(readOnly = true)
-    public ArrayList getAllSheets(){
+    public List<SheetDto> getAllSheets(){
 
         List<Sheet> sheets= sheetRepository.findAll();
         ArrayList<SheetDto> sheetList = sheets.stream().map(s-> new SheetDto(s)).collect(toCollection(ArrayList::new));
+        System.out.println(sheetList);
         return sheetList;
     }
 }
