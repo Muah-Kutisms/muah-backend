@@ -36,7 +36,6 @@ public class FuneralCompanyService {
 
     private final FuneralCompanyRepository funeralCompanyRepository;
     private final UserRepository userRepository;
-    private final ProposalRepository proposalRepository;
     private final SheetRepository sheetRepository;
 
     @Transactional(readOnly = true)
@@ -66,14 +65,17 @@ public class FuneralCompanyService {
         List<Proposal> approvedProposal = funeralCompanyRepository.findAllByStatus(id, APPROVED);
         ArrayList<Collection<SheetForFuneralDto>> sheetNewList = new ArrayList<>();
 
+        System.out.println("1. ==============" + waitingProposal);
+        System.out.println("2. ==============" + approvedProposal);
+
         for (Proposal p : waitingProposal) {
             List<Sheet> waitingSheets = funeralCompanyRepository.findByProposalId(p.getId());
             sheetNewList.add(waitingSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
         }
 
         for (Proposal p : approvedProposal) {
-            List<Sheet> approvedgSheets = funeralCompanyRepository.findByProposalId(p.getId());
-            sheetNewList.add(approvedgSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
+            List<Sheet> approvedSheets = funeralCompanyRepository.findByProposalId(p.getId());
+            sheetNewList.add(approvedSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
         }
 
         System.out.println(sheetNewList);
