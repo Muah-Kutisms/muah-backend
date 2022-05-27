@@ -60,7 +60,7 @@ public class SheetService {
                 for (int i = 0 ; i < sheetsData.size() ; ++i){
 
                     int finalI = i + 1;
-                    String petName = sheetsData.get(i).getPetName() + finalI;
+                    String petName = sheetsData.get(i).getPetName() +" " + finalI;
                     sheetList.add(new SheetNumberDto(sheetsData.get(i), petName));
                     System.out.println(sheetList); }
             }
