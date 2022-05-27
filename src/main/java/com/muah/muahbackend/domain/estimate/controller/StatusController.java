@@ -25,18 +25,18 @@ public class StatusController {
 
     @ApiOperation(value = "id인 견적서 status 수정 ")
     @PutMapping("/sheet/{id}")
-    public ResponseEntity<ResultResponse> putSheetStatus(@PathVariable Long id){
+    public ResponseEntity<ResultResponse> putSheetStatus(@PathVariable Long id, @RequestBody SheetUpdaateStatusDto status){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateSheetStatus(id));
+        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateSheetStatus(id, status));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
 
     @ApiOperation(value = "id인 견적서 status 수정 ")
     @PutMapping("/proposal/{id}")
-    public ResponseEntity<ResultResponse> putProposalStatus(@PathVariable Long id){
+    public ResponseEntity<ResultResponse> putProposalStatus(@PathVariable Long id, @RequestBody ProposalUpdateStatusDto status){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateProposalStatus(id));
+        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateProposalStatus(id, status));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }

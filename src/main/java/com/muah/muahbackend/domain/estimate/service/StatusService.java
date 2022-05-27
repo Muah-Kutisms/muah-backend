@@ -26,26 +26,18 @@ public class StatusService {
     private final ProposalRepository proposalRepository;
 
     @Transactional
-    public SheetStatus updateSheetStatus(Long id){
+    public SheetStatus updateSheetStatus(Long id, SheetUpdaateStatusDto status){
 
         Sheet sheet = sheetRepository.findById(id).orElseThrow(() -> new SheetNotFoundException());
-        SheetStatus status = sheet.getStatus();
-
-        if (status == SheetStatus.WAITING_RESERVATION) sheet.setStatus(SheetStatus.WAITING_APPROVAL);
-        else if (status == SheetStatus.WAITING_APPROVAL) sheet.setStatus(SheetStatus.WAITING_PAYMENT);
-        else if (status == SheetStatus.WAITING_PAYMENT) sheet.setStatus(SheetStatus.RESERVATION_CONFIRMED);
+        sheet.setStatus(status.getSheetStatus());
 
         return sheet.getStatus();
     }
 
     @Transactional
-    public ProposalStatus updateProposalStatus(Long id){
+    public ProposalStatus updateProposalStatus(Long id, ProposalUpdateStatusDto status){
         Proposal proposal = proposalRepository.findById(id).orElseThrow(() -> new ProposalNotFoundException());
-        ProposalStatus status = proposal.getStatus();
-
-        if (status == ProposalStatus.PROPOSED) proposal.setStatus(ProposalStatus.RESERVED);
-        else if (status == ProposalStatus.RESERVED) proposal.setStatus(ProposalStatus.APPROVED);
-        else if (status == ProposalStatus.APPROVED) proposal.setStatus(ProposalStatus.COMPLETE);
+        proposal.setStatus(proposal.getStatus());
 
         return proposal.getStatus();
 
