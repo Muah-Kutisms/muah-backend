@@ -64,7 +64,7 @@ public class SheetService {
                     sheetList.add(new SheetNumberDto(sheetsData.get(i), petName));
                     System.out.println(sheetList); }
             }
-        }else{throw new SheetNotFoundException();}
+        }
 
         return sheetList;
     }
