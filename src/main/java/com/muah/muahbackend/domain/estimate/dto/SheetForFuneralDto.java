@@ -24,12 +24,14 @@ public class SheetForFuneralDto {
     private String option;
     private SheetStatus status;
     private LocalDateTime createdDate;
+    private Long proposalId;
     private String content;
     private Integer price;
     private ProposalStatus pstatus;
 
 
     public SheetForFuneralDto(Sheet sheet, Proposal proposal){
+
         this.id = sheet.getId();
         this.petId = sheet.getPet().getId();
         this.petName = sheet.getPetName();
@@ -41,6 +43,7 @@ public class SheetForFuneralDto {
         this.option = sheet.getOption();
         this.status = sheet.getStatus();
         this.createdDate = sheet.getCreatedAt();
+        this.proposalId = proposal.getId();
         this.content = proposal.getContent();
         this.price = proposal.getPrice();
         this.pstatus = proposal.getStatus();
