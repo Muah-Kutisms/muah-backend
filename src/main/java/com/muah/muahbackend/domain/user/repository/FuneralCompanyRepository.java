@@ -22,9 +22,7 @@ public interface FuneralCompanyRepository extends JpaRepository<Sheet, Long> {
             "join fetch Proposal p " +
             "on p.id = :id and p.sheet.id = s.id")
     List<Sheet> findByProposalId(@Param("id") Long id);
-    // proposal user_id = id
-    // proposal status = complete 인 sheet id
-    // proposal status = reserved 인 sheet id
+
 
 
 
