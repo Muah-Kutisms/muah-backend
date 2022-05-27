@@ -57,11 +57,11 @@ public class SheetService {
                 id = pet.getId();
                 List<Sheet> sheetsData = sheetRepository.findAllByPetIdArray(id);
 
-                for (int i = 0; i < sheetsData.size() ;++i){
+                for (int i = 0 ; i < sheetsData.size() ; ++i){
 
-                    int finalI = i;
-
-                    sheetList.add(new SheetNumberDto(sheetsData.get(i), finalI));
+                    int finalI = i + 1;
+                    String petName = sheetsData.get(i).getPetName() + finalI;
+                    sheetList.add(new SheetNumberDto(sheetsData.get(i), petName));
                     System.out.println(sheetList); }
             }
         }else{throw new SheetNotFoundException();}

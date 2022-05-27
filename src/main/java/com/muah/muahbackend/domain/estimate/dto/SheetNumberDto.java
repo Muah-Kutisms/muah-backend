@@ -18,7 +18,7 @@ public class SheetNumberDto {
     private Long id;
     private Long petId;
     private String petName;
-    private int sheetNumberId;
+    private String sheetNumberId;
     private String question;
     private String way;
     private String service;
@@ -30,11 +30,11 @@ public class SheetNumberDto {
     private List<SheetFuneral> funerals;
 
 
-    public SheetNumberDto(Sheet sheet, int sheetNumberId){
+    public SheetNumberDto(Sheet sheet, String petName){
         this.id = sheet.getId();
         this.petId = sheet.getPet().getId();
         this.petName = sheet.getPetName();
-        this.sheetNumberId = sheetNumberId;
+        this.sheetNumberId = petName;
         this.question = sheet.getQuestion();
         this.way = sheet.getWay();
         this.service = sheet.getService();
