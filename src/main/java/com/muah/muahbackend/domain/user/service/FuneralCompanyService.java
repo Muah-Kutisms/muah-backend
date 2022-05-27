@@ -90,6 +90,8 @@ public class FuneralCompanyService {
             mergedReservedApproved.addAll(s);
         }
 
+        System.out.println(mergedComplete);
+        System.out.println(mergedReservedApproved);
 
         response.add(funeralCompany);
         response.add(mergedReservedApproved);

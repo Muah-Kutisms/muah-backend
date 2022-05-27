@@ -17,7 +17,7 @@ import java.util.List;
 public class SheetForFuneralDto {
 
     private Long id;
-    private Long petId;
+    private String petName;
     private String question;
     private String way;
     private String service;
@@ -32,7 +32,7 @@ public class SheetForFuneralDto {
 
     public SheetForFuneralDto(Sheet sheet){
         this.id = sheet.getId();
-        this.petId = sheet.getPet().getId();
+        this.petName = sheet.getPetName();
         this.question = sheet.getQuestion();
         this.way = sheet.getWay();
         this.service = sheet.getService();
