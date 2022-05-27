@@ -3,6 +3,8 @@ package com.muah.muahbackend.domain.estimate.controller;
 
 import com.muah.muahbackend.domain.estimate.dto.ProposalUpdateStatusDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetUpdaateStatusDto;
+import com.muah.muahbackend.domain.estimate.entity.ProposalStatus;
+import com.muah.muahbackend.domain.estimate.entity.SheetStatus;
 import com.muah.muahbackend.domain.estimate.service.StatusService;
 import com.muah.muahbackend.global.result.ResultCode;
 import com.muah.muahbackend.global.result.ResultResponse;
@@ -23,18 +25,18 @@ public class StatusController {
 
     @ApiOperation(value = "id인 견적서 status 수정 ")
     @PutMapping("/sheet/{id}")
-    public ResponseEntity<ResultResponse> putSheetStatus(@PathVariable Long id, @RequestBody SheetUpdaateStatusDto status){
+    public ResponseEntity<ResultResponse> putSheetStatus(@PathVariable Long id){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateSheetStatus(id, status));
+        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateSheetStatus(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
 
     @ApiOperation(value = "id인 견적서 status 수정 ")
     @PutMapping("/proposal/{id}")
-    public ResponseEntity<ResultResponse> putProposalStatus(@PathVariable Long id, @RequestBody ProposalUpdateStatusDto status){
+    public ResponseEntity<ResultResponse> putProposalStatus(@PathVariable Long id){
         ResultResponse response;
-        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateProposalStatus(id, status));
+        response = ResultResponse.of(ResultCode.UPDATE_SHEET_SUCCESS, statusService.updateProposalStatus(id));
         return new ResponseEntity<>(response, HttpStatus.valueOf(response.getStatus()));
 
     }
