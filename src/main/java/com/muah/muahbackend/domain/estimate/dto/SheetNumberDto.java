@@ -17,6 +17,7 @@ import java.util.List;
 public class SheetNumberDto {
     private Long id;
     private Long petId;
+    private String petName;
     private int sheetNumberId;
     private String question;
     private String way;
@@ -32,6 +33,7 @@ public class SheetNumberDto {
     public SheetNumberDto(Sheet sheet, int sheetNumberId){
         this.id = sheet.getId();
         this.petId = sheet.getPet().getId();
+        this.petName = sheet.getPetName();
         this.sheetNumberId = sheetNumberId;
         this.question = sheet.getQuestion();
         this.way = sheet.getWay();
