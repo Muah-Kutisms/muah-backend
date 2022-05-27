@@ -19,6 +19,9 @@ public interface ProposalRepository extends JpaRepository<Proposal, Long> {
     @Query("from Proposal p where p.sheet.id = :id")
     Collection<Proposal> findAllBySheetId(@Param("id") Long id);
 
+    @Query("from Proposal p where p.writer = :writer")
+    List<Proposal> findByUserId(@Param("writer") User writer);
+
     @Query("from Proposal p where p.sheet.pet.owner = :user and p.status= 'RESERVED'")
     Collection<Proposal> findReservedByPetOwner(@Param("user") User user);
 

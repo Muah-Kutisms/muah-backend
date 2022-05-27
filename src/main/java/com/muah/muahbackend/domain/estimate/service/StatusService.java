@@ -29,6 +29,7 @@ public class StatusService {
     public SheetStatus updateSheetStatus(Long id, SheetUpdaateStatusDto status){
 
         Sheet sheet = sheetRepository.findById(id).orElseThrow(() -> new SheetNotFoundException());
+
         sheet.setStatus(status.getSheetStatus());
 
         return sheet.getStatus();

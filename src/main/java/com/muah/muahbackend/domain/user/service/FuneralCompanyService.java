@@ -2,6 +2,7 @@ package com.muah.muahbackend.domain.user.service;
 
 
 import com.muah.muahbackend.domain.estimate.dto.SheetDto;
+import com.muah.muahbackend.domain.estimate.dto.SheetForFuneralDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetNumberDto;
 import com.muah.muahbackend.domain.estimate.entity.Proposal;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
@@ -13,6 +14,7 @@ import com.muah.muahbackend.domain.user.dto.FuneralUserDto;
 import com.muah.muahbackend.domain.user.repository.FuneralCompanyRepository;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
 import com.muah.muahbackend.global.error.exception.UserNotFoundException;
+import com.nimbusds.oauth2.sdk.util.ListUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Sort;
@@ -22,9 +24,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
-import static com.muah.muahbackend.domain.estimate.entity.ProposalStatus.COMPLETE;
-import static com.muah.muahbackend.domain.estimate.entity.ProposalStatus.RESERVED;
+import static com.muah.muahbackend.domain.estimate.entity.ProposalStatus.*;
 import static java.util.stream.Collectors.toCollection;
 
 @Slf4j
@@ -41,45 +43,53 @@ public class FuneralCompanyService {
     public ArrayList getSheets(Long id){
 
         ArrayList response = new ArrayList<>();
-        List<SheetDto> mergedComplete = new ArrayList<>();
-        List<SheetDto> mergedReserved = new ArrayList<>();
+        List<SheetForFuneralDto> mergedComplete = new ArrayList<>();
+        List<SheetForFuneralDto> mergedReservedApproved = new ArrayList<>();
 
         FuneralUserDto funeralCompany = new FuneralUserDto(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException()));
         System.out.println(funeralCompany);
 
+
         // 소비자가 돈 지불해서 거래 완료된 sheet list
         List<Proposal> chargedProposal = funeralCompanyRepository.findAllByStatus(id, COMPLETE);
-        ArrayList<Collection<SheetDto>> sheetCompleteList = new ArrayList<>();
+        ArrayList<Collection<SheetForFuneralDto>> sheetCompleteList = new ArrayList<>();
 
         for (Proposal p : chargedProposal) {
             List<Sheet> sheets = funeralCompanyRepository.findByProposalId(p.getId());
-            sheetCompleteList.add(sheets.stream().map(s -> new SheetDto(s)).collect(toCollection(ArrayList::new)));
+            sheetCompleteList.add(sheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
         }
         System.out.println(sheetCompleteList);
 
 
-        // 장례식장의 예약승인 기다리는 sheet list
+        // 장례식장의 예약승인 기다리는 sheet list 와 예약 완료된 sheet list
         List<Proposal> waitingProposal = funeralCompanyRepository.findAllByStatus(id, RESERVED);
-        ArrayList<Collection<SheetDto>> sheetReservedList = new ArrayList<>();
+        List<Proposal> approvedProposal = funeralCompanyRepository.findAllByStatus(id, APPROVED);
+        ArrayList<Collection<SheetForFuneralDto>> sheetNewList = new ArrayList<>();
 
         for (Proposal p : waitingProposal) {
-            List<Sheet> sheets = funeralCompanyRepository.findByProposalId(p.getId());
-            sheetReservedList.add(sheets.stream().map(s -> new SheetDto(s)).collect(toCollection(ArrayList::new)));
+            List<Sheet> waitingSheets = funeralCompanyRepository.findByProposalId(p.getId());
+            sheetNewList.add(waitingSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
         }
-        System.out.println(sheetReservedList);
+
+        for (Proposal p : approvedProposal) {
+            List<Sheet> approvedgSheets = funeralCompanyRepository.findByProposalId(p.getId());
+            sheetNewList.add(approvedgSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
+        }
+
+        System.out.println(sheetNewList);
 
 
-        for (Collection<SheetDto> s : sheetCompleteList) {
+        for (Collection<SheetForFuneralDto> s : sheetCompleteList) {
             mergedComplete.addAll(s);
         }
 
-        for (Collection<SheetDto> s : sheetReservedList) {
-            mergedReserved.addAll(s);
+        for (Collection<SheetForFuneralDto> s : sheetNewList) {
+            mergedReservedApproved.addAll(s);
         }
 
 
         response.add(funeralCompany);
-        response.add(mergedReserved);
+        response.add(mergedReservedApproved);
         response.add(mergedComplete);
 
         return response;
