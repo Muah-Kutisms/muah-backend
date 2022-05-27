@@ -98,6 +98,8 @@ public class S3Uploader {
         System.out.println("루트 사용자에게 해당 파일 접근 권한 주기");
         Runtime.getRuntime().exec("chmod 777 " + convertFile);
       //  Runtime.getRuntime().exec("chmod -R 777 " + convertFile);
+        convertFile.setWritable(true); //쓰기가능설정
+        convertFile.setReadable(true);
         if (convertFile.createNewFile()) { // 바로 위에서 지정한 경로에 File이 생성됨 (경로가 잘못되었다면 생성 불가능)
             try (FileOutputStream fos = new FileOutputStream(convertFile)) { // FileOutputStream 데이터를 파일에 바이트 스트림으로 저장하기 위함
                 System.out.println("파일 바이트 스트림으로 저장");
