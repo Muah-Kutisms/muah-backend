@@ -29,7 +29,7 @@ public class StatusService {
     public SheetStatus updateSheetStatus(Long id, SheetUpdaateStatusDto status){
 
         Sheet sheet = sheetRepository.findById(id).orElseThrow(() -> new SheetNotFoundException());
-
+        System.out.println(status);
         sheet.setStatus(status.getSheetStatus());
         sheetRepository.save(sheet);
 
@@ -40,7 +40,7 @@ public class StatusService {
     public ProposalStatus updateProposalStatus(Long id, ProposalUpdateStatusDto status){
         Proposal proposal = proposalRepository.findById(id).orElseThrow(() -> new ProposalNotFoundException());
 
-        proposal.setStatus(proposal.getStatus());
+        proposal.setStatus(status.getStatus());
         proposalRepository.save(proposal);
 
         return proposal.getStatus();
