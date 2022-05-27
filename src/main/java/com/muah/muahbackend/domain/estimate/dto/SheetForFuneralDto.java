@@ -1,9 +1,6 @@
 package com.muah.muahbackend.domain.estimate.dto;
 
-import com.muah.muahbackend.domain.estimate.entity.Proposal;
-import com.muah.muahbackend.domain.estimate.entity.Sheet;
-import com.muah.muahbackend.domain.estimate.entity.SheetFuneral;
-import com.muah.muahbackend.domain.estimate.entity.SheetStatus;
+import com.muah.muahbackend.domain.estimate.entity.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,12 +22,13 @@ public class SheetForFuneralDto {
     private LocalDate funeralDate;
     private String option;
     private SheetStatus status;
-    private List<Proposal> proposals;
-    private List<SheetFuneral> funerals;
     private LocalDateTime createdDate;
+    private String content;
+    private Integer price;
+    private ProposalStatus pstatus;
 
 
-    public SheetForFuneralDto(Sheet sheet){
+    public SheetForFuneralDto(Sheet sheet, Proposal proposal){
         this.id = sheet.getId();
         this.petName = sheet.getPetName();
         this.question = sheet.getQuestion();
@@ -40,10 +38,15 @@ public class SheetForFuneralDto {
         this.funeralDate = sheet.getFuneralDate();
         this.option = sheet.getOption();
         this.status = sheet.getStatus();
-        this.proposals = sheet.getProposals();
-        this.funerals = sheet.getFunerals();
         this.createdDate = sheet.getCreatedAt();
+        this.content = proposal.getContent();
+        this.price = proposal.getPrice();
+        this.pstatus = proposal.getStatus();
+
+
     }
+
+
 
 
 }

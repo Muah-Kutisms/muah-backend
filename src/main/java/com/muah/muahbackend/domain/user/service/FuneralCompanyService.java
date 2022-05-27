@@ -5,6 +5,7 @@ import com.muah.muahbackend.domain.estimate.dto.SheetDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetForFuneralDto;
 import com.muah.muahbackend.domain.estimate.dto.SheetNumberDto;
 import com.muah.muahbackend.domain.estimate.entity.Proposal;
+import com.muah.muahbackend.domain.estimate.entity.ProposalStatus;
 import com.muah.muahbackend.domain.estimate.entity.Sheet;
 import com.muah.muahbackend.domain.estimate.repository.ProposalRepository;
 import com.muah.muahbackend.domain.estimate.repository.SheetRepository;
@@ -38,6 +39,7 @@ public class FuneralCompanyService {
     private final FuneralCompanyRepository funeralCompanyRepository;
     private final UserRepository userRepository;
     private final SheetRepository sheetRepository;
+    private final ProposalRepository proposalRepository;
 
     @Transactional(readOnly = true)
     public ArrayList getSheets(Long id){
@@ -55,7 +57,7 @@ public class FuneralCompanyService {
 
         for (Proposal p : chargedProposal) {
             List<Sheet> sheets = funeralCompanyRepository.findByProposalId(p.getId());
-            sheetCompleteList.add(sheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
+            sheetCompleteList.add(sheets.stream().map(s -> new SheetForFuneralDto(s,p)).collect(toCollection(ArrayList::new)));
         }
         System.out.println(sheetCompleteList);
 
@@ -68,12 +70,12 @@ public class FuneralCompanyService {
 
         for (Proposal p : waitingProposal) {
             List<Sheet> waitingSheets = funeralCompanyRepository.findByProposalId(p.getId());
-            sheetNewList1.add(waitingSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
+            sheetNewList1.add(waitingSheets.stream().map(s -> new SheetForFuneralDto(s, p)).collect(toCollection(ArrayList::new)));
         }
 
         for (Proposal p : approvedProposal) {
             List<Sheet> approvedSheets = funeralCompanyRepository.findByProposalId(p.getId());
-            sheetNewList2.add(approvedSheets.stream().map(s -> new SheetForFuneralDto(s)).collect(toCollection(ArrayList::new)));
+            sheetNewList2.add(approvedSheets.stream().map(s -> new SheetForFuneralDto(s,p)).collect(toCollection(ArrayList::new)));
         }
 
         System.out.println(sheetNewList1);
@@ -92,8 +94,10 @@ public class FuneralCompanyService {
             mergedReservedApproved.addAll(s);
         }
 
+
         System.out.println(mergedComplete);
         System.out.println(mergedReservedApproved);
+
 
         response.add(funeralCompany);
         response.add(mergedReservedApproved);
