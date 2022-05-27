@@ -31,7 +31,7 @@ public class ProposalController {
 
     }
 
-    @ApiOperation(value = "id 견적서에 id 업체의 댓글 id 조회")
+    @ApiOperation(value = "id 댓글 조회")
     @GetMapping("/proposal/{proposalId}")
     public ResponseEntity<ResultResponse> getProposalInfo(@PathVariable Long proposalId){
         ResultResponse response;

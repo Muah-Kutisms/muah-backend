@@ -32,7 +32,7 @@ public class StatusController {
 
     }
 
-    @ApiOperation(value = "id인 견적서 status 수정 ")
+    @ApiOperation(value = "id인 댓글 status 수정 ")
     @PutMapping("/proposal/{id}")
     public ResponseEntity<ResultResponse> putProposalStatus(@PathVariable Long id, @RequestBody ProposalUpdateStatusDto status){
         ResultResponse response;
