@@ -10,6 +10,7 @@ import com.muah.muahbackend.domain.estimate.repository.ProposalRepository;
 import com.muah.muahbackend.domain.estimate.repository.SheetRepository;
 import com.muah.muahbackend.domain.store.dto.ProductMenuDto;
 import com.muah.muahbackend.domain.store.entity.Product;
+import com.muah.muahbackend.domain.user.dto.FuneralCompanyDto;
 import com.muah.muahbackend.domain.user.dto.FuneralUserDto;
 import com.muah.muahbackend.domain.user.repository.FuneralCompanyRepository;
 import com.muah.muahbackend.domain.user.repository.UserRepository;
@@ -45,7 +46,7 @@ public class FuneralCompanyService {
         List<SheetForFuneralDto> mergedComplete = new ArrayList<>();
         List<SheetForFuneralDto> mergedReservedApproved = new ArrayList<>();
 
-        FuneralUserDto funeralCompany = new FuneralUserDto(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException()));
+        FuneralCompanyDto funeralCompany = new FuneralCompanyDto(userRepository.findById(id).orElseThrow(() -> new UserNotFoundException()));
         System.out.println(funeralCompany);
 
 
