@@ -31,6 +31,7 @@ public class StatusService {
         Sheet sheet = sheetRepository.findById(id).orElseThrow(() -> new SheetNotFoundException());
 
         sheet.setStatus(status.getSheetStatus());
+        sheetRepository.save(sheet);
 
         return sheet.getStatus();
     }
@@ -38,7 +39,9 @@ public class StatusService {
     @Transactional
     public ProposalStatus updateProposalStatus(Long id, ProposalUpdateStatusDto status){
         Proposal proposal = proposalRepository.findById(id).orElseThrow(() -> new ProposalNotFoundException());
+
         proposal.setStatus(proposal.getStatus());
+        proposalRepository.save(proposal);
 
         return proposal.getStatus();
 
